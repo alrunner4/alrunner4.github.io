@@ -1,0 +1,30 @@
+
+div.page
+{
+    width:6.5in;
+    height:auto;
+    margin:20px auto;
+}
+
+* { font-size:10pt; }
+
+h1 { font-size:18pt; margin:9pt 0; text-shadow:#303030 0px 0px 1px; }
+h2 { font-size:14pt; margin:15pt 0 5pt 0; font-weight:bold; text-transform:uppercase; text-shadow:#606060 0px 0px 1px; }
+h3 { font-size:12pt; margin:4pt 0; font-weight:bold; position:relative; margin-left:0.5in; text-shadow:#909090 0px 0px 1px; }
+
+p, li { margin:4px 0px; }
+
+table, tr, td { padding:0px; margin:0px; }
+
+.named_list { margin:4px 0px; }
+.bullet_head { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
+.date { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
+
+.indent1 { position:relative; margin-left:0.5in; }
+.indent2 { position:relative; margin-left:1.0in; }
+
+.underline { text-decoration:underline; font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
+.italic    { font-style:italic; }
+
+.nomargin { margin:4px 0px; }
+
