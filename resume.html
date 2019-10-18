@@ -3,34 +3,34 @@
 <head>
 	<title>Alexander Carter | Resume</title>
 	<style>
-		div.page
-		{
-		    width:6.5in;
-		    height:auto;
-		    margin:20px auto;
+		div.page {
+			width:6.5in;
+			height:auto;
+			margin: 20px auto;
 		}
 
-		* { font-size:10pt; }
+		* { font-size:10pt; font-family: serif }
 
-		h1 { font-size:18pt; margin:9pt 0; text-shadow:#303030 0px 0px 1px; }
-		h2 { font-size:14pt; margin:15pt 0 5pt 0; font-weight:bold; text-transform:uppercase; text-shadow:#606060 0px 0px 1px; }
-		h3 { font-size:12pt; margin:4pt 0; font-weight:bold; position:relative; margin-left:0.5in; text-shadow:#909090 0px 0px 1px; }
+		h1 { font-size:16pt; margin: 9pt 0; text-shadow:#303030 0px 0px 1px; }
+		h2 { font-size:14pt; margin: 15pt 0 4pt 0; font-weight:bold; text-transform:uppercase; text-shadow:#606060 0px 0px 1px; }
+		h3 { font-size:12pt; margin: 4pt 0 0 0.5in; font-weight:bold; text-shadow:#909090 0px 0px 1px; }
 
-		p, li { margin:4px 0px; }
+		p, li { margin: 4px 0px; }
 
-		table, tr, td { padding:0px; margin:0px; }
+		table, tr, td { padding:0px; margin:0px; width:100%; }
 
-		.named_list { margin:4px 0px; }
+		.named_list { margin: 4px 0px; }
 		.bullet_head { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
 		.date { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
+		.date_column { min-width:156pt; text-align:right; }
+		.indent2 { margin-left:1.0in; }
 
-		.indent1 { position:relative; margin-left:0.5in; }
-		.indent2 { position:relative; margin-left:1.0in; }
+		.page > ul, .page > em { margin: 0 0 0 0.5in; }
 
 		.underline { text-decoration:underline; font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
 		.italic    { font-style:italic; }
 
-		.nomargin { margin:4px 0px; }
+		.nomargin { margin: 4px 0px; }
 	</style>
 </head>
 
@@ -41,7 +41,7 @@
 	<td>
 	<h1>Alexander L. Carter</h1>
 	</td>
-	<td align="right">
+	<td style="text-align:right">
 	<p>
 		916-275-3474<br>
 		alrunner4@gmail.com<br>
@@ -53,32 +53,30 @@
 	<hr style="width:100%; height:2px;">
 
 	<h2>Objective</h2>
-	<p class="indent1">
-		I want to challenge aspiring programmers to never stop learning while pushing the boundaries of the state-of-the-art in our craft.
-	</p>
+	<em>I want to challenge aspiring programmers to never stop learning while pushing the boundaries of the state-of-the-art in our craft.</em>
 
 	<h2>Languages</h2>
-	<div class="named_list indent1" style="margin-top:0; margin-bottom:0;">
+	<div class="named_list" style="margin: 0 0 0 0.5in;">
 		<span class="bullet_head">Fluent in:</span> C/C++ (9 years), Haskell (4 years), Idris (4 years), GNU Bash<br>
 		<span class="bullet_head">Very familiar with:</span> Java, Ruby, Javascript, PureScript, Lua, GLSL, Objective-C, PHP, Puppet, C#<br>
 	</div>
 
 	<h2>Roles</h2>
 
-	<table style="width:100%;"><tbody><tr>
+	<table><tbody><tr>
 		<td><h3>Adjunct Lecturer @ DigiPen</h3></td>
-		<td align="right"><p class="date nomargin">May 2019 - July 2019</p></td>
+		<td class="date_column"><p class="date nomargin">May 2019 - July 2019</p></td>
 	</tr></tbody></table>
-	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
+	<ul style="margin-top:0; margin-bottom:0;">
 		<li>CS 170: High-Level Programming 2 (Introduction to C++)</li>
 		<li>CS 399: Introduction to Functional Programming (Idris)</li>
 	</ul>
 
-	<table style="width:100%;"><tbody><tr>
-		<td><h3>Co-Founder @ Protean Solutions</h3></td>
-		<td align="right"><p class="date nomargin">October 2018 - Present</p></td>
+	<table><tbody><tr>
+		<td><h3>Technical Co-Founder @ Protean Solutions</h3></td>
+		<td class="date_column"><p class="date nomargin">October 2018 - Present</p></td>
 	</tr></tbody></table>
-	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
+	<ul style="margin-top:0; margin-bottom:0;">
 		<li>Android native client</li>
 		<li>Web frontend (HTML, CSS, JavaScript)</li>
 		<li>Web backend (HTTP, JSON, MySQL)</li>
@@ -86,7 +84,7 @@
 
 	<table style="width:100%;"><tbody><tr>
 		<td><h3>DevOps @ SigFig</h3></td>
-		<td align="right"><p class="date nomargin">July 2014 - September 2018</p></td>
+		<td class="date_column"><p class="date nomargin">July 2014 - September 2018</p></td>
 	</tr></tbody></table>
 	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
 		<li>Production change management tooling (Ruby, Bash, Puppet)</li>
@@ -96,93 +94,43 @@
 		<li>Database administration (MySQL)</li>
 	</ul>
 
-	<table style="width:100%;"><tbody><tr>
-		<td><h3>Full-Stack @ Freelance</h3></td>
-		<td align="right"><p class="date nomargin">February 2014</p></td>
+	<table><tbody><tr>
+		<td><h3>Web Development @ ITG Holdings</h3></td>
+		<td class="date_column"><p class="date nomargin">February 2014</p></td>
 	</tr></tbody></table>
-	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
-		<li><span class="underline">ITG Holdings, LLC</span><br>
-		design and implementation of a prototype web client and server featuring real-time
-		updates among many clients simultaneously; implemented with:
+		<p style="margin-left:0.75in">Design and implementation of a prototype web client and server featuring real-time
+		updates among many clients simultaneously; implemented with:</p>
 		<ul style="margin-top:0; margin-bottom:0;">
-			<li>Haskell &amp; the Yesod Web Framework</li>
-			<li>Javascript &amp; jQuery AJAX</li>
+				<li>Haskell &amp; the Yesod Web Framework</li>
+				<li>Javascript &amp; jQuery AJAX</li>
 		</ul>
-	</li></ul>
 
-	<div style="break-before:page">
-	<table style="width:100%;"><tbody><tr>
-		<td><h3>Game Client Development @ TinyCo</h3></td>
-		<td align="right"><p class="date nomargin">August 2011 - October 2013</p></td>
+	<table><tbody><tr>
+		<td><h3>Mobile Game Development @ TinyCo</h3></td>
+		<td class="date_column"><p class="date nomargin">August 2011 - October 2013</p></td>
 	</tr></tbody></table>
-	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
-		<li>
-			<span class="underline">Zeus: Cross-Platform Mobile Animation Engine</span><br>
-			Designed, implemented, and led engineering for TinyCo's company-wide 2D animation system, including client code, asset pipeline, asset viewer, and profiler (C, C++, Objective-C, ActionScript)
-		</li>
-		<li>
-			<span class="underline">Unreleased Project</span><br>
-			Migrated TinyCo's cross-platform game engine from Cocos2d-x 1.x to 2.0.x including transition from OpenGL ES 1.1 to 2.0,
-			implemented selectively-recolorable animations (C++, Haskell),
-			cross-platform game client development (C++)
-		</li>
-		<li>
-			<span class="underline">Super Slots</span><br>
-			Lead engineer on post-prototype cross-platform game client (C++, Lua, Java)
-		</li>
-		<li>
-			<span class="underline">Tiny Monsters</span><br>
-			Cross-platform game client development (Objective-C, C++)
-		</li>
-		<li>
-			<span class="underline">Tiny Pets</span><br>
-			iOS game client development (Objective-C)
-		</li>
+	<ul style="margin-top:0; margin-bottom:0;">
+		<li>Designed, implemented, and led engineering for an overhaul of the company-wide 2D animation system, including client code, asset pipeline, viewer, and profiler</li>
+		<li>Led a team of 5 engineers on Android and iOS development of <em>Super Slots</em></li>
+		<li>Contributed to Android and iOS projects <em>Tiny Monsters</em>, <em>Tiny Pets</em>, an unreleased strategy game, and TinyCo's internal shared libraries</li>
 	</ul>
-	</div>
 
-	<table style="width:100%;"><tbody><tr>
+	<table><tbody><tr>
 		<td><h3>Graphics Hardware Debug @ Intel</h3></td>
-		<td align="right"><p class="date nomargin">August 2010 - July 2011</p></td>
+		<td class="date_column"><p class="date nomargin">August 2010 - July 2011</p></td>
 	</tr></tbody></table>
-	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
+	<ul style="margin-top:0; margin-bottom:0;">
 		<li>Debugged suspected graphics hardware issues on project SandyBridge</li>
 	</ul>
 
 	<h2>Education</h2>
-	<table style="width:100%;">
-	<tbody><tr>
+	<table><tbody><tr>
 		<td><h3>Digipen Institute of Technology</h3></td>
-		<td align="right"><p class="date nomargin">2006 - 2010</p></td>
-	</tr>
-	</tbody></table>
-
+		<td class="date_column"><p class="date nomargin">2006 - 2010</p></td>
+	</tr></tbody></table>
 	<p class="indent2 italic" style="margin-top:0;">
-	Bachelor of Science, Real-Time Interactive Simulation, Mathematics Minor
+		Bachelor of Science, Real-Time Interactive Simulation, Mathematics Minor
 	</p>
-
-	<!--
-	<h3>Game Projects</h3>
-	<p class="indent2 italic" style="margin-top:0;">Each project was completed without the use of a pre-built game engine with a 4+ member engineering team over the course of one academic year.</p>
-	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
-		<li>
-			<span class="underline">The Right to Bear Arms</span>: A 3D real-time tactical game<br>
-			Responsibilities: Technical Director, Game Engine, AI Engine
-		</li>
-		<li>
-			<span class="underline">Conundrum</span>: A gravity-based side-scrolling 2D puzzle-platformer<br>
-			Responsibilities: Physics
-		</li>
-		<li>
-			<span class="underline">Where's Our Water</span>: A top-down text-based hack-and-slash<br>
-			Responsibilities: Technical Director, Multithreaded Game Engine, Messaging System
-		</li>
-		<li>
-			<span class="underline">The Adventures of Blue Guy</span>: A 3D physics-based platformer<br>
-			Responsibilities: Keyboard/Mouse/Gamepad Controls, Menu System
-		</li>
-	</ul>
-	-->
 
 </div></body>
 
