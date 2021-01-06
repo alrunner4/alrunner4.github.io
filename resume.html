@@ -22,8 +22,9 @@
 		.named_list { margin: 4px 0px; }
 		.bullet_head { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
 		.date { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
-		.date_column { min-width:156pt; text-align:right; }
+		.date_column { min-width:156pt; text-align:right; vertical-align: bottom; }
 		.indent2 { margin-left:1.0in; }
+      .hanging { padding-left:2em; text-indent:-2em; }
 
 		.page > ul, .page > em { margin: 0 0 0 0.5in; }
 
@@ -31,6 +32,7 @@
 		.italic    { font-style:italic; }
 
 		.nomargin { margin: 4px 0px; }
+		.nowrap { font-size:inherit; white-space:nowrap; }
 	</style>
 </head>
 
@@ -42,11 +44,10 @@
 	<h1>Alexander L. Carter</h1>
 	</td>
 	<td style="text-align:right">
-	<p>
-		916-275-3474<br>
-		alrunner4@gmail.com<br>
-		<a href="https://www.linkedin.com/in/alrunner4">linkedin.com/in/alrunner4</a>
-	</p>
+      <p class="nowrap">916-275-3474</p>
+      <p class="nowrap">alrunner4@gmail.com</p>
+      <p class="nowrap">
+         <a href="https://www.linkedin.com/in/alrunner4">linkedin.com/in/alrunner4</a></p>
 	</td>
 	</tr></tbody></table>
 
@@ -57,27 +58,38 @@
 
 	<h2>Languages</h2>
 	<div class="named_list" style="margin: 0 0 0 0.5in;">
-		<span class="bullet_head">Fluent in:</span> C/C++ (9 years), Haskell (4 years), Idris (4 years), GNU Bash<br>
-		<span class="bullet_head">Very familiar with:</span> Java, Ruby, Javascript, PureScript, Lua, GLSL, Objective-C, PHP, Puppet, C#<br>
+      <p class="hanging"><span class="bullet_head">Fluent in:</span>
+         <span class="nowrap">C/C++ (10 years),</span>
+         <span class="nowrap">GNU Bash (10 years),</span>
+         <span class="nowrap">Idris (5 years),</span>
+         <span class="nowrap">Haskell (4 years),</span>
+         <span class="nowrap">Java (3 years)</span>
+         <span class="nowrap">Scheme (2 years)</span>
+      </p>
+      <p class="hanging"><span class="bullet_head">Very familiar with:</span>
+         Ruby, Javascript, PureScript, Lua, GLSL, Objective-C, PHP, Puppet, C#</p>
 	</div>
 
 	<h2>Roles</h2>
 
 	<table><tbody><tr>
 		<td><h3>Adjunct Lecturer @ DigiPen</h3></td>
-		<td class="date_column"><p class="date nomargin">May 2019 - July 2019</p></td>
+		<td class="date_column"><p class="date nomargin">May 2019 - December 2020</p></td>
 	</tr></tbody></table>
 	<ul style="margin-top:0; margin-bottom:0;">
+		<li>CS 120: High-Level Programming 1 (C)</li>
 		<li>CS 170: High-Level Programming 2 (Introduction to C++)</li>
-		<li>CS 399: Introduction to Functional Programming (Idris)</li>
+		<li>CS 185: Introduction to C++ for Game Designers</li>
+		<li>CS 225: Advanced C/C++</li>
+		<li>CS 399: Introduction to Functional Programming (Idris/Haskell)</li>
 	</ul>
 
 	<table><tbody><tr>
-		<td><h3>Technical Co-Founder @ Protean Solutions</h3></td>
+		<td><h3>Technical Co-Founder @ <span class="nowrap">Protean Solutions</span></h3></td>
 		<td class="date_column"><p class="date nomargin">October 2018 - Present</p></td>
 	</tr></tbody></table>
 	<ul style="margin-top:0; margin-bottom:0;">
-		<li>Android native client</li>
+		<li>Android native client with Google Maps integration</li>
 		<li>Web frontend (HTML, CSS, JavaScript)</li>
 		<li>Web backend (HTTP, JSON, MySQL)</li>
 	</ul>
@@ -87,10 +99,11 @@
 		<td class="date_column"><p class="date nomargin">July 2014 - September 2018</p></td>
 	</tr></tbody></table>
 	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
-		<li>Production change management tooling (Ruby, Bash, Puppet)</li>
-		<li>Continuous integration (Jenkins, Ruby, Bash, Git)</li>
-		<li>On-premises virtualization (VMware vSphere)</li>
+		<li>Lead developer and operator of production change management systems <span class=nowrap>(Ruby, Bash, Puppet)</span></li>
+		<li>Lead developer and operator of continuous integration systems <span class=nowrap>(Jenkins, Ruby, Bash, Git)</span></li>
+		<li>On-premises and hosted virtualization <span class=nowrap>(VMware vSphere, AWS EC2)</span></li>
 		<li>Configuration management (Puppet)</li>
+		<li>Logging and monitoring <span class=nowrap>(Logstash, Nagios, Kibana)</span></li>
 		<li>Database administration (MySQL)</li>
 	</ul>
 
@@ -98,12 +111,12 @@
 		<td><h3>Web Development @ ITG Holdings</h3></td>
 		<td class="date_column"><p class="date nomargin">February 2014</p></td>
 	</tr></tbody></table>
-		<p style="margin-left:0.75in">Design and implementation of a prototype web client and server featuring real-time
-		updates among many clients simultaneously; implemented with:</p>
-		<ul style="margin-top:0; margin-bottom:0;">
-				<li>Haskell &amp; the Yesod Web Framework</li>
-				<li>Javascript &amp; jQuery AJAX</li>
-		</ul>
+	<p style="margin-left:0.75in">Design and implementation of a prototype web client and server featuring real-time
+	updates among many clients simultaneously; implemented with:</p>
+	<ul style="margin-top:0; margin-bottom:0;">
+			<li>Haskell &amp; the Yesod Web Framework</li>
+			<li>Javascript &amp; jQuery AJAX</li>
+	</ul>
 
 	<table><tbody><tr>
 		<td><h3>Mobile Game Development @ TinyCo</h3></td>
