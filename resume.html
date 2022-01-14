@@ -1,51 +1,85 @@
-<html>
+ <html>
 
 <head>
 	<title>Alexander Carter | Resume</title>
 	<style>
 		div.page {
-			width:6.5in;
-			height:auto;
+			height: auto;
 			margin: 20px auto;
+			width:  7.5in;
 		}
 
-		* { font-size:10pt; font-family: serif }
+		* { font-size:10pt; font-family:serif }
 
-		h1 { font-size:16pt; margin: 9pt 0; text-shadow:#303030 0px 0px 1px; }
-		h2 { font-size:14pt; margin: 15pt 0 4pt 0; font-weight:bold; text-transform:uppercase; text-shadow:#606060 0px 0px 1px; }
-		h3 { font-size:12pt; margin: 4pt 0 0 0.5in; font-weight:bold; text-shadow:#909090 0px 0px 1px; }
+		h1 {
+         font-size:   20pt;
+         margin:      9pt 0;
+         text-shadow: #303030 0px 0px 1px;
+      }
+		h2 {
+         font-size:      14pt;
+         margin:         15pt 0 4pt 0;
+         font-weight:    bold;
+         text-transform: uppercase;
+         text-shadow:    #606060 0px 0px 1px;
+      }
+		h3 {
+         font-size:   12pt;
+         font-weight: bold;
+         margin:      4pt 0 0 0.5in;
+         text-shadow: #909090 0px 0px 1px;
+         white-space: nowrap;
+      }
+
+      a { text-decoration:none; }
+
+      h3 a { font-size:inherit; white-space:nowrap; }
 
 		p, li { margin: 4px 0px; }
 
+      table { border-collapse:collapse; }
 		table, tr, td { padding:0px; margin:0px; width:100%; }
 
 		.named_list { margin: 4px 0px; }
 		.bullet_head { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
-		.date { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
-		.date_column { min-width:156pt; text-align:right; vertical-align: bottom; }
-		.indent2 { margin-left:1.0in; }
+		.date { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; white-space:nowrap; }
+		.date_column { min-width:156pt; text-align:right; }
+      .indent0 { margin-left:0.50in; }
+      .indent1 { margin-left:0.75in; }
+		.indent2 { margin-left:1.00in; }
       .hanging { padding-left:2em; text-indent:-2em; }
+      .vpad1 { padding-top: 0.66em; padding-bottom: 0.66em; }
 
-		.page > ul, .page > em { margin: 0 0 0 0.5in; }
+      tr:first-child { background-color:#F0F0F0; padding: 0.5em; }
+      tr:first-child td > * { margin:0.5em; }
 
-		.underline { text-decoration:underline; font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
-		.italic    { font-style:italic; }
+		.page > ul, .page > em {
+         margin-left:  0.375in;
+         padding-left: 0.375in;
+      }
 
-		.nomargin { margin: 4px 0px; }
+		.underline {
+         font-variant:    small-caps;
+         text-decoration: underline;
+         text-shadow:     #909090 0px 0px 1px;
+      }
+		.italic { font-style:italic; }
+
 		.nowrap { font-size:inherit; white-space:nowrap; }
 	</style>
 </head>
 
 <body><div class="page">
 
-	<table style="width:100%;">
+	<table>
 	<tbody><tr>
-	<td>
+   <td class="vpad1">
 	<h1>Alexander L. Carter</h1>
+   <small style="margin-left:0.25in">Generalist Software Developer</small>
 	</td>
 	<td style="text-align:right">
       <p class="nowrap">916-275-3474</p>
-      <p class="nowrap">alrunner4@gmail.com</p>
+      <p class="nowrap"><a href="mailto:alrunner4@gmail.com">alrunner4@gmail.com</a></p>
       <p class="nowrap">
          <a href="https://www.linkedin.com/in/alrunner4">linkedin.com/in/alrunner4</a></p>
 	</td>
@@ -53,28 +87,33 @@
 
 	<hr style="width:100%; height:2px;">
 
-	<h2>Objective</h2>
-	<em>I want to challenge aspiring programmers to never stop learning while pushing the boundaries of the state-of-the-art in our craft.</em>
+	<table><tbody><tr>
+		<td><h3>Technical Co-Founder @
+         <a href="https://protean.solutions">Protean Solutions</a>
+      </h3></td>
+		<td class="date_column"><p class="date">October 2018 - Present</p></td>
+	</tr></tbody></table>
+	<ul style="margin-top:0; margin-bottom:0;">
+		<li>Android native client with Google Maps and Google Sign-In integrations</li>
+		<li>Web frontend (HTML, CSS, JavaScript)</li>
+		<li>Web backend (Apache CGI, GNU Bash, JSON, MySQL)</li>
+	</ul>
 
-	<h2>Languages</h2>
-	<div class="named_list" style="margin: 0 0 0 0.5in;">
-      <p class="hanging"><span class="bullet_head">Fluent in:</span>
-         <span class="nowrap">C/C++ (10 years),</span>
-         <span class="nowrap">GNU Bash (10 years),</span>
-         <span class="nowrap">Idris (5 years),</span>
-         <span class="nowrap">Haskell (4 years),</span>
-         <span class="nowrap">Java (3 years)</span>
-         <span class="nowrap">Scheme (2 years)</span>
-      </p>
-      <p class="hanging"><span class="bullet_head">Very familiar with:</span>
-         Ruby, Javascript, PureScript, Lua, GLSL, Objective-C, PHP, Puppet, C#</p>
-	</div>
-
-	<h2>Roles</h2>
+   <table><tbody><tr>
+      <td><h3><a href="https://wyzant.com/tutors/alrunner4">Private Tutor</a></h3></td>
+      <td class="date_column"><p class="date">April 2020 - Present</p></td>
+   </tr></tbody></table>
+   <p class="indent0">Hundreds of hours of successful lessons supporting students in</p>
+   <ul style="margin-top:0; margin-bottom:0;">
+      <li>getting started with programming with games at the middle-school level</li>
+      <li>introductory through advanced C, C++, and Java language topics</li>
+      <li>functional programming with Haskell and Scheme</li>
+      <li>masters-level functional programming languages and compilers</li>
+   </ul>
 
 	<table><tbody><tr>
-		<td><h3>Adjunct Lecturer @ DigiPen</h3></td>
-		<td class="date_column"><p class="date nomargin">May 2019 - December 2020</p></td>
+      <td><h3>Adjunct Lecturer @ <a href="https://digipen.edu">DigiPen</a></h3></td>
+		<td class="date_column"><p class="date">May 2019 - December 2020</p></td>
 	</tr></tbody></table>
 	<ul style="margin-top:0; margin-bottom:0;">
 		<li>CS 120: High-Level Programming 1 (C)</li>
@@ -84,53 +123,55 @@
 		<li>CS 399: Introduction to Functional Programming (Idris/Haskell)</li>
 	</ul>
 
-	<table><tbody><tr>
-		<td><h3>Technical Co-Founder @ <span class="nowrap">Protean Solutions</span></h3></td>
-		<td class="date_column"><p class="date nomargin">October 2018 - Present</p></td>
+	<table style="width:100%;"><tbody><tr>
+      <td><h3>DevOps @ <a href="https://sigfig.com">SigFig</a></h3></td>
+		<td class="date_column"><p class="date">July 2014 - September 2018</p></td>
 	</tr></tbody></table>
 	<ul style="margin-top:0; margin-bottom:0;">
-		<li>Android native client with Google Maps integration</li>
-		<li>Web frontend (HTML, CSS, JavaScript)</li>
-		<li>Web backend (HTTP, JSON, MySQL)</li>
-	</ul>
-
-	<table style="width:100%;"><tbody><tr>
-		<td><h3>DevOps @ SigFig</h3></td>
-		<td class="date_column"><p class="date nomargin">July 2014 - September 2018</p></td>
-	</tr></tbody></table>
-	<ul class="indent1" style="margin-top:0; margin-bottom:0;">
-		<li>Lead developer and operator of production change management systems <span class=nowrap>(Ruby, Bash, Puppet)</span></li>
-		<li>Lead developer and operator of continuous integration systems <span class=nowrap>(Jenkins, Ruby, Bash, Git)</span></li>
-		<li>On-premises and hosted virtualization <span class=nowrap>(VMware vSphere, AWS EC2)</span></li>
-		<li>Configuration management (Puppet)</li>
+		<li>Lead developer and operator of production change management systems
+         <span class=nowrap>(Ruby, Bash, Puppet)</span>
+      </li>
+		<li>Lead developer and operator of continuous integration systems
+         <span class=nowrap>(Jenkins, Ruby, Bash, Git)</span>
+      </li>
+		<li>On-premises and hosted virtualization
+         <span class=nowrap>(VMware vSphere, AWS EC2)</span>
+      </li>
+		<li>System and service configuration management (Puppet)</li>
 		<li>Logging and monitoring <span class=nowrap>(Logstash, Nagios, Kibana)</span></li>
 		<li>Database administration (MySQL)</li>
+      <li>Containerization of JVM services and build pipelines (Docker)</li>
 	</ul>
 
 	<table><tbody><tr>
 		<td><h3>Web Development @ ITG Holdings</h3></td>
-		<td class="date_column"><p class="date nomargin">February 2014</p></td>
+		<td class="date_column"><p class="date">February 2014</p></td>
 	</tr></tbody></table>
-	<p style="margin-left:0.75in">Design and implementation of a prototype web client and server featuring real-time
-	updates among many clients simultaneously; implemented with:</p>
+	<p class="indent0">Sole developer for technical design and implementation of a prototype web
+      client and server featuring real-time updates among many clients simultaneously; implemented
+      with:</p>
 	<ul style="margin-top:0; margin-bottom:0;">
 			<li>Haskell &amp; the Yesod Web Framework</li>
 			<li>Javascript &amp; jQuery AJAX</li>
 	</ul>
 
 	<table><tbody><tr>
-		<td><h3>Mobile Game Development @ TinyCo</h3></td>
-		<td class="date_column"><p class="date nomargin">August 2011 - October 2013</p></td>
+      <td><h3>Mobile Game Development @ <a href="https://www.jamcity.com/">TinyCo</a></h3></td>
+		<td class="date_column"><p class="date">August 2011 - October 2013</p></td>
 	</tr></tbody></table>
 	<ul style="margin-top:0; margin-bottom:0;">
-		<li>Designed, implemented, and led engineering for an overhaul of the company-wide 2D animation system, including client code, asset pipeline, viewer, and profiler</li>
+		<li>Designed, implemented, and led engineering for an overhaul of the company-wide 2D
+         animation system, including client code, asset pipeline, viewer, and profiler
+      </li>
 		<li>Led a team of 5 engineers on Android and iOS development of <em>Super Slots</em></li>
-		<li>Contributed to Android and iOS projects <em>Tiny Monsters</em>, <em>Tiny Pets</em>, an unreleased strategy game, and TinyCo's internal shared libraries</li>
+		<li>Contributed to Android and iOS projects <em>Tiny Monsters</em>, <em>Tiny Pets</em>, an
+         unreleased strategy game, and TinyCo's internal shared libraries
+      </li>
 	</ul>
 
 	<table><tbody><tr>
 		<td><h3>Graphics Hardware Debug @ Intel</h3></td>
-		<td class="date_column"><p class="date nomargin">August 2010 - July 2011</p></td>
+		<td class="date_column"><p class="date">August 2010 - July 2011</p></td>
 	</tr></tbody></table>
 	<ul style="margin-top:0; margin-bottom:0;">
 		<li>Debugged suspected graphics hardware issues on project SandyBridge</li>
@@ -139,11 +180,26 @@
 	<h2>Education</h2>
 	<table><tbody><tr>
 		<td><h3>Digipen Institute of Technology</h3></td>
-		<td class="date_column"><p class="date nomargin">2006 - 2010</p></td>
+		<td class="date_column"><p class="date">2006 - 2010</p></td>
 	</tr></tbody></table>
-	<p class="indent2 italic" style="margin-top:0;">
+	<p class="indent1 italic">
 		Bachelor of Science, Real-Time Interactive Simulation, Mathematics Minor
 	</p>
+
+	<h2>Languages</h2>
+	<div class="indent0 named_list">
+      <p class="hanging"><span class="bullet_head">Fluent in:</span>
+         <span class="nowrap">C++ (10 years),</span>
+         <span class="nowrap">GNU Bash (10 years),</span>
+         <span class="nowrap">Idris (5 years),</span>
+         <span class="nowrap">Haskell (4 years),</span>
+         <span class="nowrap">C (3 years),</span>
+         <span class="nowrap">Java (3 years),</span>
+         <span class="nowrap">Scheme (2 years)</span>
+      </p>
+      <p class="hanging"><span class="bullet_head">Very familiar with:</span>
+         JavaScript, Ruby, Lua, PureScript, GLSL, Objective-C, PHP, Puppet, C#</p>
+	</div>
 
 </div></body>
 
