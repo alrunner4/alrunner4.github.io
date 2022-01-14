@@ -1,33 +1,36 @@
- <html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Alexander Carter | Resume</title>
-	<style>
-		div.page {
-			height: auto;
-			margin: 20px auto;
-			width:  7.5in;
-		}
-
-		* { font-size:10pt; font-family:serif }
-
-		h1 {
-         font-size:   20pt;
-         margin:      9pt 0;
-         text-shadow: #303030 0px 0px 1px;
+   <meta charset=UTF-8>
+   <title>Alexander Carter | Resume</title>
+   <style>
+      @page {
+         size: 8.5in 11in;
+         margin: 0.5in;
       }
-		h2 {
-         font-size:      14pt;
-         margin:         15pt 0 4pt 0;
+
+      * { font-size:10pt; font-family:"Bitstream Charter", serif; }
+
+      h1 {
+         font-size:   20pt;
+         margin:      5pt 10pt;
+         text-shadow: #303030 0 0 1pt;
+      }
+
+      h2 {
+         font-size:      16pt;
+         margin:         15pt 0 4pt 6pt;
          font-weight:    bold;
          text-transform: uppercase;
-         text-shadow:    #606060 0px 0px 1px;
+         text-shadow:    #606060 0 0 1pt;
       }
-		h3 {
+
+      h3 {
          font-size:   12pt;
          font-weight: bold;
-         margin:      4pt 0 0 0.5in;
-         text-shadow: #909090 0px 0px 1px;
+         padding:     6pt;
+         margin:      0;
+         text-shadow: #909090 0 0 1pt;
          white-space: nowrap;
       }
 
@@ -35,160 +38,91 @@
 
       h3 a { font-size:inherit; white-space:nowrap; }
 
-		p, li { margin: 4px 0px; }
+      section { page-break-inside:avoid; }
 
       table { border-collapse:collapse; }
-		table, tr, td { padding:0px; margin:0px; width:100%; }
+      table, tr, td { padding:0; margin:0; width:100%; }
 
-		.named_list { margin: 4px 0px; }
-		.bullet_head { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; }
-		.date { font-variant:small-caps; text-shadow:#909090 0px 0px 1px; white-space:nowrap; }
-		.date_column { min-width:156pt; text-align:right; }
-      .indent0 { margin-left:0.50in; }
-      .indent1 { margin-left:0.75in; }
-		.indent2 { margin-left:1.00in; }
-      .hanging { padding-left:2em; text-indent:-2em; }
-      .vpad1 { padding-top: 0.66em; padding-bottom: 0.66em; }
-
-      tr:first-child { background-color:#F0F0F0; padding: 0.5em; }
-      tr:first-child td > * { margin:0.5em; }
-
-		.page > ul, .page > em {
-         margin-left:  0.375in;
-         padding-left: 0.375in;
+      ul {
+         margin-bottom: 0;
+         margin-top:    0.5em;
+         margin-left:   0.375in;
+         padding-left:  0;
       }
 
-		.underline {
+      .bullet_head { font-variant:small-caps; text-shadow:#909090 0 0 1pt; }
+      .contact { display:table-cell; list-style-type:none; padding:0.5em; vertical-align:middle; }
+      .contact > li { font-size:inherit; margin:0.5em; text-align:right; white-space:nowrap; }
+      .hanging { padding-left:2em; text-indent:-2em; }
+      .indent0 { margin-left:0.375in; }
+      .indent1 { margin-left:0.75in; }
+      .indent2 { margin-left:1.00in; }
+      .named_list { list-style:none; }
+      .nowrap { white-space:nowrap; }
+      .section-head { background-color:#F0F0F0; display:table; margin-top:8pt; width:100%; }
+      .subtitle { margin-left: 20pt; }
+
+      .date {
+         display:        table-cell;
+         font-variant:   small-caps;
+         padding:        0.5em;
+         text-align:     right;
+         text-shadow:    #909090 0 0 1pt;
+         vertical-align: middle;
+         white-space:    nowrap;
+      }
+
+      .narration {
+         font-style:italic;
+         font-family: "Operator Mono Book", serif;
+      }
+
+      .page {
+         height: auto;
+         margin: 20px auto;
+         width:  7.5in;
+      }
+
+      .purpose {
+         font-size:11pt;
+         margin:12pt;
+      }
+
+      .underline {
          font-variant:    small-caps;
          text-decoration: underline;
-         text-shadow:     #909090 0px 0px 1px;
+         text-shadow:     #909090 0 0 1pt;
       }
-		.italic { font-style:italic; }
-
-		.nowrap { font-size:inherit; white-space:nowrap; }
-	</style>
+   </style>
 </head>
 
 <body><div class="page">
 
-	<table>
-	<tbody><tr>
-   <td class="vpad1">
-	<h1>Alexander L. Carter</h1>
-   <small style="margin-left:0.25in">Generalist Software Developer</small>
-	</td>
-	<td style="text-align:right">
-      <p class="nowrap">916-275-3474</p>
-      <p class="nowrap"><a href="mailto:alrunner4@gmail.com">alrunner4@gmail.com</a></p>
-      <p class="nowrap">
-         <a href="https://www.linkedin.com/in/alrunner4">linkedin.com/in/alrunner4</a></p>
-	</td>
-	</tr></tbody></table>
+   <section>
+   <div class="section-head">
+      <p><h1>Alexander L. Carter</h1>
+         <span class="subtitle">Generalist Software Developer</span>
+      </p>
+      <ul class="contact">
+         <li>916-275-3474</li>
+         <li><a href="mailto:alrunner4@gmail.com">alrunner4@gmail.com</a></li>
+         <li><a href="https://www.linkedin.com/in/alrunner4">linkedin.com/in/alrunner4</a></li>
+      </ul>
+   </div>
 
-	<hr style="width:100%; height:2px;">
+   <p class="narration purpose">I'm passionate about software correctness, clarity, and expressing
+      specifications as types. I'd like to apply my knowledge of practical functional programming to
+      build impactful and reliable solutions to difficult problems.
+   </p>
+   </section>
 
-	<table><tbody><tr>
-		<td><h3>Technical Co-Founder @
-         <a href="https://protean.solutions">Protean Solutions</a>
-      </h3></td>
-		<td class="date_column"><p class="date">October 2018 - Present</p></td>
-	</tr></tbody></table>
-	<ul style="margin-top:0; margin-bottom:0;">
-		<li>Android native client with Google Maps and Google Sign-In integrations</li>
-		<li>Web frontend (HTML, CSS, JavaScript)</li>
-		<li>Web backend (Apache CGI, GNU Bash, JSON, MySQL)</li>
-	</ul>
+   <section>
+   <!--          --!>
+   <h2>Languages</h2>
+   <!--          --!>
 
-   <table><tbody><tr>
-      <td><h3><a href="https://wyzant.com/tutors/alrunner4">Private Tutor</a></h3></td>
-      <td class="date_column"><p class="date">April 2020 - Present</p></td>
-   </tr></tbody></table>
-   <p class="indent0">Hundreds of hours of successful lessons supporting students in</p>
-   <ul style="margin-top:0; margin-bottom:0;">
-      <li>getting started with programming with games at the middle-school level</li>
-      <li>introductory through advanced C, C++, and Java language topics</li>
-      <li>functional programming with Haskell and Scheme</li>
-      <li>masters-level functional programming languages and compilers</li>
-   </ul>
-
-	<table><tbody><tr>
-      <td><h3>Adjunct Lecturer @ <a href="https://digipen.edu">DigiPen</a></h3></td>
-		<td class="date_column"><p class="date">May 2019 - December 2020</p></td>
-	</tr></tbody></table>
-	<ul style="margin-top:0; margin-bottom:0;">
-		<li>CS 120: High-Level Programming 1 (C)</li>
-		<li>CS 170: High-Level Programming 2 (Introduction to C++)</li>
-		<li>CS 185: Introduction to C++ for Game Designers</li>
-		<li>CS 225: Advanced C/C++</li>
-		<li>CS 399: Introduction to Functional Programming (Idris/Haskell)</li>
-	</ul>
-
-	<table style="width:100%;"><tbody><tr>
-      <td><h3>DevOps @ <a href="https://sigfig.com">SigFig</a></h3></td>
-		<td class="date_column"><p class="date">July 2014 - September 2018</p></td>
-	</tr></tbody></table>
-	<ul style="margin-top:0; margin-bottom:0;">
-		<li>Lead developer and operator of production change management systems
-         <span class=nowrap>(Ruby, Bash, Puppet)</span>
-      </li>
-		<li>Lead developer and operator of continuous integration systems
-         <span class=nowrap>(Jenkins, Ruby, Bash, Git)</span>
-      </li>
-		<li>On-premises and hosted virtualization
-         <span class=nowrap>(VMware vSphere, AWS EC2)</span>
-      </li>
-		<li>System and service configuration management (Puppet)</li>
-		<li>Logging and monitoring <span class=nowrap>(Logstash, Nagios, Kibana)</span></li>
-		<li>Database administration (MySQL)</li>
-      <li>Containerization of JVM services and build pipelines (Docker)</li>
-	</ul>
-
-	<table><tbody><tr>
-		<td><h3>Web Development @ ITG Holdings</h3></td>
-		<td class="date_column"><p class="date">February 2014</p></td>
-	</tr></tbody></table>
-	<p class="indent0">Sole developer for technical design and implementation of a prototype web
-      client and server featuring real-time updates among many clients simultaneously; implemented
-      with:</p>
-	<ul style="margin-top:0; margin-bottom:0;">
-			<li>Haskell &amp; the Yesod Web Framework</li>
-			<li>Javascript &amp; jQuery AJAX</li>
-	</ul>
-
-	<table><tbody><tr>
-      <td><h3>Mobile Game Development @ <a href="https://www.jamcity.com/">TinyCo</a></h3></td>
-		<td class="date_column"><p class="date">August 2011 - October 2013</p></td>
-	</tr></tbody></table>
-	<ul style="margin-top:0; margin-bottom:0;">
-		<li>Designed, implemented, and led engineering for an overhaul of the company-wide 2D
-         animation system, including client code, asset pipeline, viewer, and profiler
-      </li>
-		<li>Led a team of 5 engineers on Android and iOS development of <em>Super Slots</em></li>
-		<li>Contributed to Android and iOS projects <em>Tiny Monsters</em>, <em>Tiny Pets</em>, an
-         unreleased strategy game, and TinyCo's internal shared libraries
-      </li>
-	</ul>
-
-	<table><tbody><tr>
-		<td><h3>Graphics Hardware Debug @ Intel</h3></td>
-		<td class="date_column"><p class="date">August 2010 - July 2011</p></td>
-	</tr></tbody></table>
-	<ul style="margin-top:0; margin-bottom:0;">
-		<li>Debugged suspected graphics hardware issues on project SandyBridge</li>
-	</ul>
-
-	<h2>Education</h2>
-	<table><tbody><tr>
-		<td><h3>Digipen Institute of Technology</h3></td>
-		<td class="date_column"><p class="date">2006 - 2010</p></td>
-	</tr></tbody></table>
-	<p class="indent1 italic">
-		Bachelor of Science, Real-Time Interactive Simulation, Mathematics Minor
-	</p>
-
-	<h2>Languages</h2>
-	<div class="indent0 named_list">
-      <p class="hanging"><span class="bullet_head">Fluent in:</span>
+   <ul class="indent0 named_list">
+      <li class="hanging"><span class="bullet_head">Fluent:</span>
          <span class="nowrap">C++ (10 years),</span>
          <span class="nowrap">GNU Bash (10 years),</span>
          <span class="nowrap">Idris (5 years),</span>
@@ -196,10 +130,167 @@
          <span class="nowrap">C (3 years),</span>
          <span class="nowrap">Java (3 years),</span>
          <span class="nowrap">Scheme (2 years)</span>
-      </p>
-      <p class="hanging"><span class="bullet_head">Very familiar with:</span>
-         JavaScript, Ruby, Lua, PureScript, GLSL, Objective-C, PHP, Puppet, C#</p>
-	</div>
+      </li>
+      <li class="hanging"><span class="bullet_head">Very familiar with:</span>
+         Nix, JavaScript, HTML, CSS, Ruby, Lua, PureScript, GLSL, Objective-C, PHP, Puppet, C#
+      </li>
+   </ul>
+   </section>
+
+   <section>
+   <!--      --!>
+   <h2>Roles</h2>
+   <!--      --!>
+
+   <div class="section-head">
+      <h3><a href="https://wyzant.com/tutors/alrunner4">Private Tutor</a></h3>
+      <span class="date">April 2020 - Present</span>
+   </div>
+   <p class="indent0 narration">
+      My tutoring strategy is goal-oriented and starts by meeting any student at their current level
+      of understanding. Through discussion and exercises, I've had hundreds of hours of successful
+      lessons supporting students with:
+   </p>
+   <ul>
+      <li>getting started with programming through games at the middle-school level</li>
+      <li>introductory through advanced C, C++, and Java language topics</li>
+      <li>functional programming with Haskell and Scheme</li>
+      <li>masters-level functional programming languages and compilers</li>
+   </ul>
+   </section>
+
+   <section>
+   <div class="section-head">
+      <td><h3>DevOps @ <a href="https://sigfig.com">SigFig</a></h3></td>
+      <span class="date">July 2014 - September 2018</span>
+   </div>
+   <p class="indent0 narration">
+      I was the #2 individual contributor for the infrastructure team during my tenure at SigFig,
+      and trusted with full operational control over all production and data systems for a million
+      monthly active users and thousands of clients with assets under management.
+   </p>
+   <ul>
+      <li>Lead developer and operator of production change management systems
+         <span class=nowrap>(Ruby, Bash, Puppet)</span>
+      </li>
+      <li>Lead developer and operator of continuous integration systems
+         <span class=nowrap>(Jenkins, Ruby, Bash, Git)</span>
+      </li>
+      <li>On-premises and hosted virtualization
+         <span class=nowrap>(VMware vSphere, AWS EC2)</span>
+      </li>
+      <li>System and service configuration management (Puppet)</li>
+      <li>Logging and monitoring <span class=nowrap>(Logstash, Nagios, Kibana)</span></li>
+      <li>Database administration (MySQL)</li>
+      <li>Containerization of JVM services and build pipelines (Docker)</li>
+      <li>Key contact for all technical SOC auditing requirements</li>
+   </ul>
+   </section>
+
+   <section>
+   <div class="section-head">
+      <h3>Adjunct Lecturer @ <a href="https://digipen.edu">DigiPen</a></h3>
+      <span class="date">May 2019 - December 2020</span>
+   </div>
+   <p class="indent0 narration">
+      As an adjunct, I managed all aspects of several semesters of the core computer
+      science curriculum for freshmen and sophomores, and led summer elective courses in functional
+      programming with curriculum of my own design.
+   </p>
+   <ul>
+      <li>CS 120: High-Level Programming 1 (C)</li>
+      <li>CS 170: High-Level Programming 2 (Introduction to C++)</li>
+      <li>CS 185: Introduction to C++ for Game Designers</li>
+      <li>CS 225: Advanced C/C++</li>
+      <li>CS 399: Introduction to Functional Programming (Idris/Haskell)</li>
+   </ul>
+   </section>
+
+   <section>
+   <div class="section-head">
+      <h3>Technical Co-Founder @
+         <a href="https://protean.solutions">Protean Solutions</a>
+      </h3>
+      <span class="date">October 2018 - Present</span>
+   </div>
+   <p class="indent0 narration">
+      An unfunded venture, our team focuses on a crowdsourced information-sharing quality-of-life
+      <a href="https://play.google.com/store/apps/details?id=solutions.protean.steelcobra">
+         mobile app for truck drivers</a>, and have delivered on minor engagements with a freight
+         carrier for custom fleet analytics support software construction. As the only professional
+         developer on the team, 95% of Protean's engineering is my work.
+   </p>
+   <ul>
+      <li>Android native client with Google Maps and Google Sign-In integrations</li>
+      <li>Web frontend (HTML, CSS, JavaScript)</li>
+      <li>Web backend (Apache CGI, GNU Bash, JSON, MySQL)</li>
+   </ul>
+   </section>
+
+   <section>
+   <div class="section-head">
+      <td><h3>Prototype Development @ <a href="https://itgcapitalgroup.com/">ITG Holdings</a></h3></td>
+      <td class="date_column"><p class="date">February 2014</p></td>
+   </div>
+   <p class="indent0 narration">
+      A solo contract for technical design and implementation of a prototype web
+      client and server featuring real-time updates among many clients simultaneously. Multiple
+      other teams had been engaged and failed to deliver on this concept previously.
+   </p>
+   <ul>
+         <li>Haskell &amp; the Yesod Web Framework</li>
+         <li>JavaScript &amp; jQuery AJAX</li>
+         <li>4 week engagement concluded with a functional prototype delivered in 3 weeks leaving a
+            full week for user testing
+         </li>
+   </ul>
+   </section>
+
+   <section>
+   <div class="section-head">
+      <td><h3>Mobile Game Development @ <a href="https://www.jamcity.com/">TinyCo</a></h3></td>
+      <span class="date">August 2011 - October 2013</span>
+   </div>
+   <ul>
+      <li>Designed, implemented, and led ongoing engineering for an overhaul of the team's core
+         2D animation system, including client code, asset pipeline, viewer, and performance
+         profiler, dramatically decreasing animation storage and runtime memory requirements
+         (90-95%) without disrupting animators' production workflow
+      </li>
+      <li>Led a team of 5 engineers on Android and iOS development of <em>Super Slots</em></li>
+      <li>Contributed to Android and iOS projects <em>Tiny Monsters</em>, <em>Tiny Pets</em>, an
+         unreleased strategy game, and TinyCo's internal shared libraries (C++)
+      </li>
+   </ul>
+   </section>
+
+   <section>
+   <div class="section-head">
+      <td><h3>Graphics Hardware Debug @ Intel</h3></td>
+      <span class="date">August 2010 - July 2011</span>
+   </div>
+   <ul>
+      <li>Debugged suspected graphics hardware issues on project SandyBridge</li>
+      <li>After many sporadic failure reproductions over the course of 9 months, I managed to
+         prove a voltage leak on 1% of SandyBridge parts that single-handedly created the E
+         stepping.
+      </li>
+   </ul>
+   </section>
+
+   <section>
+   <!--          --!>
+   <h2>Education</h2>
+   <!--          --!>
+
+   <div class="section-head">
+      <h3>Digipen Institute of Technology</h3>
+      <span class="date">2006 - 2010</span>
+   </div>
+   <p class="indent0 narration">
+      Bachelor of Science, Real-Time Interactive Simulation, Mathematics Minor
+   </p>
+   </section>
 
 </div></body>
 
