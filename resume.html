@@ -1,19 +1,29 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!--
+   vim: cc=101 tw=100 shiftwidth=3
+-->
 <html lang="en">
 <head>
-   <meta charset=UTF-8>
+   <meta charset="UTF-8">
    <title>Alexander Carter | Resume</title>
    <style>
       @page {
          size: 8.5in 11in;
-         margin: 0.5in;
+         margin: 0.4in 0.15in;
       }
 
-      * { font-size:10pt; font-family:"Bitstream Charter", serif; }
+      body { font-size:10pt; font-family:"Bitstream Charter", serif; }
+
+      @media screen {
+         .page {
+            height: auto;
+            margin: 2em auto;
+            width:  7.5in;
+         }
+      }
 
       h1 {
          font-size:   20pt;
-         margin:      5pt 10pt;
+         margin:      6pt 10pt;
          text-shadow: #303030 0 0 1pt;
       }
 
@@ -36,18 +46,32 @@
 
       a { text-decoration:none; }
 
-      h3 a { font-size:inherit; white-space:nowrap; }
+      h3 a { font-size:inherit; }
 
-      section { page-break-inside:avoid; }
-
-      table { border-collapse:collapse; }
-      table, tr, td { padding:0; margin:0; width:100%; }
+      section { margin-bottom: 12pt; page-break-inside:avoid; }
 
       ul {
          margin-bottom: 0;
          margin-top:    0.5em;
          margin-left:   0.375in;
          padding-left:  0;
+      }
+
+      li ul {
+         color: #555555;
+         margin-top: 0.25em;
+         margin-bottom: 0.25em;
+         margin-left: 0;
+         list-style: none;
+      }
+
+      li li { margin-left: 1em; }
+      li li::marker { content: '\2514   '; }
+
+      header { background-color:#F0F0F0; display:table; margin-top:8pt; width:100%; }
+      header h3 {
+         display: table-cell;
+         width: 100%;
       }
 
       .bullet_head { font-variant:small-caps; text-shadow:#909090 0 0 1pt; }
@@ -58,8 +82,7 @@
       .indent1 { margin-left:0.75in; }
       .indent2 { margin-left:1.00in; }
       .named_list { list-style:none; }
-      .nowrap { white-space:nowrap; }
-      .section-head { background-color:#F0F0F0; display:table; margin-top:8pt; width:100%; }
+      .nowrap { font-family:inherit; font-size:inherit; white-space:nowrap; }
       .subtitle { margin-left: 20pt; }
 
       .date {
@@ -73,19 +96,16 @@
       }
 
       .narration {
-         font-style:italic;
+         font-style:   italic;
          font-family: "Operator Mono Book", serif;
-      }
-
-      .page {
-         height: auto;
-         margin: 20px auto;
-         width:  7.5in;
+         margin-left:  12pt;
       }
 
       .purpose {
-         font-size:11pt;
-         margin:12pt;
+         font-family: "Operator Mono Book", serif;
+         font-size:    11pt;
+         font-style:   italic;
+         margin:       12pt;
       }
 
       .underline {
@@ -96,19 +116,18 @@
    </style>
 </head>
 
-<body><div class="page">
+<body class=page><div>
 
    <section>
-   <div class="section-head">
-      <p><h1>Alexander L. Carter</h1>
+   <header>
+      <h1>Alexander L. Carter</h1>
          <span class="subtitle">Generalist Software Developer</span>
-      </p>
       <ul class="contact">
          <li>916-275-3474</li>
          <li><a href="mailto:alrunner4@gmail.com">alrunner4@gmail.com</a></li>
          <li><a href="https://www.linkedin.com/in/alrunner4">linkedin.com/in/alrunner4</a></li>
       </ul>
-   </div>
+   </header>
 
    <p class="narration purpose">I'm passionate about software correctness, clarity, and expressing
       specifications as types. I'd like to apply my knowledge of practical functional programming to
@@ -116,12 +135,12 @@
    </p>
    </section>
 
-   <section>
-   <!--          --!>
+   <!--           -->
    <h2>Languages</h2>
-   <!--          --!>
+   <!--           -->
 
-   <ul class="indent0 named_list">
+   <section>
+   <ul class="named_list">
       <li class="hanging"><span class="bullet_head">Fluent:</span>
          <span class="nowrap">C++ (10 years),</span>
          <span class="nowrap">GNU Bash (10 years),</span>
@@ -137,16 +156,38 @@
    </ul>
    </section>
 
-   <section>
-   <!--      --!>
-   <h2>Roles</h2>
-   <!--      --!>
+   <!--           -->
+   <h2>Education</h2>
+   <!--           -->
 
-   <div class="section-head">
+   <section>
+   <header>
+      <h3>Digipen Institute of Technology</h3>
+      <span class="date">2006 - 2010</span>
+   </header>
+   <p class="narration">
+      Bachelor of Science, Real-Time Interactive Simulation, Mathematics Minor
+   </p>
+   <ul>
+      <li>Four year-long team game projects completed from scratch (C++) including installers and
+         uninstallers <span class=nowrap>(Inno Setup)</span>
+      </li>
+      <li>Software rendering algorithms from scratch, DirectX, and OpenGL</li>
+      <li>Real-time 2D physics simulation</li>
+      <li>Win32 API, WinForms, GDI+, GTK, .NET 4.0</li>
+   </ul>
+   </section>
+
+   <!--       -->
+   <h2>Roles</h2>
+   <!--       -->
+
+   <section>
+   <header>
       <h3><a href="https://wyzant.com/tutors/alrunner4">Private Tutor</a></h3>
       <span class="date">April 2020 - Present</span>
-   </div>
-   <p class="indent0 narration">
+   </header>
+   <p class="narration">
       My tutoring strategy is goal-oriented and starts by meeting any student at their current level
       of understanding. Through discussion and exercises, I've had hundreds of hours of successful
       lessons supporting students with:
@@ -160,39 +201,11 @@
    </section>
 
    <section>
-   <div class="section-head">
-      <td><h3>DevOps @ <a href="https://sigfig.com">SigFig</a></h3></td>
-      <span class="date">July 2014 - September 2018</span>
-   </div>
-   <p class="indent0 narration">
-      I was the #2 individual contributor for the infrastructure team during my tenure at SigFig,
-      and trusted with full operational control over all production and data systems for a million
-      monthly active users and thousands of clients with assets under management.
-   </p>
-   <ul>
-      <li>Lead developer and operator of production change management systems
-         <span class=nowrap>(Ruby, Bash, Puppet)</span>
-      </li>
-      <li>Lead developer and operator of continuous integration systems
-         <span class=nowrap>(Jenkins, Ruby, Bash, Git)</span>
-      </li>
-      <li>On-premises and hosted virtualization
-         <span class=nowrap>(VMware vSphere, AWS EC2)</span>
-      </li>
-      <li>System and service configuration management (Puppet)</li>
-      <li>Logging and monitoring <span class=nowrap>(Logstash, Nagios, Kibana)</span></li>
-      <li>Database administration (MySQL)</li>
-      <li>Containerization of JVM services and build pipelines (Docker)</li>
-      <li>Key contact for all technical SOC auditing requirements</li>
-   </ul>
-   </section>
-
-   <section>
-   <div class="section-head">
+   <header>
       <h3>Adjunct Lecturer @ <a href="https://digipen.edu">DigiPen</a></h3>
       <span class="date">May 2019 - December 2020</span>
-   </div>
-   <p class="indent0 narration">
+   </header>
+   <p class="narration">
       As an adjunct, I managed all aspects of several semesters of the core computer
       science curriculum for freshmen and sophomores, and led summer elective courses in functional
       programming with curriculum of my own design.
@@ -207,89 +220,129 @@
    </section>
 
    <section>
-   <div class="section-head">
-      <h3>Technical Co-Founder @
-         <a href="https://protean.solutions">Protean Solutions</a>
-      </h3>
-      <span class="date">October 2018 - Present</span>
-   </div>
-   <p class="indent0 narration">
-      An unfunded venture, our team focuses on a crowdsourced information-sharing quality-of-life
-      <a href="https://play.google.com/store/apps/details?id=solutions.protean.steelcobra">
-         mobile app for truck drivers</a>, and have delivered on minor engagements with a freight
-         carrier for custom fleet analytics support software construction. As the only professional
-         developer on the team, 95% of Protean's engineering is my work.
+   <header>
+      <h3>DevOps @ <a href="https://sigfig.com">SigFig</a></h3>
+      <span class="date">July 2014 - September 2018</span>
+   </header>
+   <p class="narration">
+      I was the #2 individual contributor for the infrastructure team during my tenure at SigFig,
+      and trusted with full operational control over all production and data systems for a million
+      monthly active users and thousands of clients with assets under management.
    </p>
    <ul>
-      <li>Android native client with Google Maps and Google Sign-In integrations</li>
-      <li>Web frontend (HTML, CSS, JavaScript)</li>
-      <li>Web backend (Apache CGI, GNU Bash, JSON, MySQL)</li>
+      <li>Lead developer and operator of production change management systems
+         <span class=nowrap>(Ruby, Bash, Puppet)</span>
+         <ul><li>
+            The financial institutions with which SigFig interoperates require high levels of uptime
+            with managed windows for all production changes, for which I designed SigFig's automated
+            human-in-the-loop tooling to increase production change confidence even for substantial
+            multi-service deployments.
+         </li></ul>
+      </li>
+      <li>Lead developer and operator of continuous integration systems
+         <span class=nowrap>(Jenkins, Ruby, Bash, Git, Puppet)</span>
+         <ul><li>
+            I was known throughout the product teams as the subject matter expert for all things
+            build-and-deploy for all of our Java, Scala, and Angular projects across development,
+            QA, and production environments.
+         </li></ul>
+      </li>
+      <li>On-premises and hosted virtualization provisioning, networking, and management
+         <span class=nowrap>(VMware vSphere, AWS EC2)</span>
+         <ul><li>
+            I was responsible for all aspects of host and network provisioning in our virtual
+            environments, including both Linux and AWS network firewalls and corporate authorization
+            controls.
+         </li></ul>
+      </li>
+      <li>Containerization of JVM and NodeJS services and build pipelines (Docker)
+         <ul><li>
+            I spearheaded SigFig's transition to containerization as the team was diversifying into
+            Java microservices alongside a PHP legacy. Containerizing the build system for new
+            services as the initial experiment proved to increase confidence in reproducibility, and
+            paved the way for an eventual decision to transition to Kubernetes as the production
+            backend substrate.
+         </li></ul>
+      </li>
+      <li>Logging and monitoring <span class=nowrap>(Logstash, Nagios, Kibana)</span>
+         <ul><li>
+            In addition to system monitoring and firefighting with Nagios, I encouraged service
+            teams to take advantage of visualization of logs-based metrics made available by our
+            Kibana installation.
+         </li></ul>
+      </li>
+      <li>Database administration (MySQL)
+         <ul><li>
+            In addition to running point on all production changes, including database migrations, I
+            provisioned and managed backups and disaster recovery, and collaborated with service
+            developers about potential impacts of database changes ahead of production change
+            events.
+         </li></ul>
+      </li>
+      <li>Corporate and datacenter VPN administration (PfSense)
+         <ul><li>
+            I was the subject matter expert and on-call for all corporate network troubleshooting,
+            and owned user certificate distribution and recovery during the years before SigFig had
+            a dedicated IT team.
+         </li></ul>
+      </li>
+      <li>Key contact for all technical SOC auditing requirements
+         <ul><li>
+            I was responsible for rectifying auditor-discovered gaps and producing proof of numerous
+            security controls and audit systems for SigFig's successful SOC-2 compliance
+            certification.
+         </li></ul>
+      </li>
    </ul>
    </section>
 
    <section>
-   <div class="section-head">
-      <td><h3>Prototype Development @ <a href="https://itgcapitalgroup.com/">ITG Holdings</a></h3></td>
-      <td class="date_column"><p class="date">February 2014</p></td>
-   </div>
-   <p class="indent0 narration">
-      A solo contract for technical design and implementation of a prototype web
-      client and server featuring real-time updates among many clients simultaneously. Multiple
-      other teams had been engaged and failed to deliver on this concept previously.
-   </p>
-   <ul>
-         <li>Haskell &amp; the Yesod Web Framework</li>
-         <li>JavaScript &amp; jQuery AJAX</li>
-         <li>4 week engagement concluded with a functional prototype delivered in 3 weeks leaving a
-            full week for user testing
-         </li>
-   </ul>
-   </section>
-
-   <section>
-   <div class="section-head">
-      <td><h3>Mobile Game Development @ <a href="https://www.jamcity.com/">TinyCo</a></h3></td>
+   <header>
+      <h3>Mobile Game Development @ <a href="https://www.jamcity.com/">TinyCo</a></h3>
       <span class="date">August 2011 - October 2013</span>
-   </div>
+   </header>
+   <p class="narration">
+      My contributions to Tiny Pets and
+      <a href="https://play.google.com/store/apps/details?id=com.tinyco.monsters">Tiny Monsters</a>
+      earned me a vote of confidence from the studio's senior developers to participate in our
+      cross-platform game-engine steering comittee, and my efforts were key to enabling several of
+      TinyCo's 2D games to dramatically increase animation detail and variety beyond most
+      competitors in the space, especially evidenced in
+      <a href="https://play.google.com/store/apps/details?id=com.tinyco.familyguy">
+         <span class=nowrap>Family Guy: The Quest for Stuff</span></a>.
+   </p>
    <ul>
-      <li>Designed, implemented, and led ongoing engineering for an overhaul of the team's core
-         2D animation system, including client code, asset pipeline, viewer, and performance
+      <li>
+         Proposed, designed, implemented, and led ongoing engineering for an overhaul of the team's
+         core 2D animation system, including client code, asset pipeline, viewer, and performance
          profiler, dramatically decreasing animation storage and runtime memory requirements
          (90-95%) without disrupting animators' production workflow
+         <span class=nowrap>(C++, OpenGL, Flash ActionScript)</span>
       </li>
-      <li>Led a team of 5 engineers on Android and iOS development of <em>Super Slots</em></li>
-      <li>Contributed to Android and iOS projects <em>Tiny Monsters</em>, <em>Tiny Pets</em>, an
-         unreleased strategy game, and TinyCo's internal shared libraries (C++)
-      </li>
+      <li>
+         Led a team of 5 engineers on Android and iOS development of <em>Super Slots</em>, for
+         which I pushed our Lua scripting system to new levels of flexibility to enable content
+         creators a high degree of freedom to add content without game rebuilds</li>
    </ul>
    </section>
 
    <section>
-   <div class="section-head">
-      <td><h3>Graphics Hardware Debug @ Intel</h3></td>
+   <header>
+      <h3>Graphics Hardware Debug @ <a href="https://www.exploreintel.com/meet/folsom">Intel</a></h3>
       <span class="date">August 2010 - July 2011</span>
-   </div>
+   </header>
+   <p class="narration">
+      I supported the Graphics Debug Team's efforts in reproducing and analyzing issues discovered
+      by the Test Team and reported by customers, primarily through the SandyBridge platform's
+      support for limited programmable on-die logic probes observable with the lab's logic
+      analyzers.
+   </p>
    <ul>
-      <li>Debugged suspected graphics hardware issues on project SandyBridge</li>
-      <li>After many sporadic failure reproductions over the course of 9 months, I managed to
-         prove a voltage leak on 1% of SandyBridge parts that single-handedly created the E
-         stepping.
+      <li>After studying many sporadic reproductions of a particularly elusive hardware failure over
+         the course of 9 months, I managed to prove the existence of a transistor voltage leak on 1%
+         of SandyBridge parts that single-handedly created the E stepping.
       </li>
    </ul>
-   </section>
-
-   <section>
-   <!--          --!>
-   <h2>Education</h2>
-   <!--          --!>
-
-   <div class="section-head">
-      <h3>Digipen Institute of Technology</h3>
-      <span class="date">2006 - 2010</span>
-   </div>
-   <p class="indent0 narration">
-      Bachelor of Science, Real-Time Interactive Simulation, Mathematics Minor
-   </p>
    </section>
 
 </div></body>
