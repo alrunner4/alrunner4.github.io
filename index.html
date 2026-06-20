@@ -79,7 +79,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
       position: relative;
     }
 
@@ -120,233 +120,7 @@
       font-weight: 300;
     }
 
-    /* Grid & Cards Layout */
-    .grid-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    @media (min-width: 900px) {
-      .grid-container {
-        grid-template-columns: 320px 1fr;
-      }
-    }
-
-    /* Dashboard Sidebar */
-    .dashboard {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 1.75rem;
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      height: fit-content;
-      position: sticky;
-      top: 2rem;
-    }
-
-    .dashboard-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      padding-bottom: 0.75rem;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      margin-left: auto;
-    }
-
-    .status-idle {
-      background: rgba(156, 163, 175, 0.1);
-      color: var(--text-muted);
-    }
-
-    .status-connecting {
-      background: rgba(254, 240, 138, 0.1);
-      color: #facc15;
-      animation: pulse 1.5s infinite;
-    }
-
-    .status-active {
-      background: rgba(34, 211, 238, 0.1);
-      color: var(--accent-cyan);
-    }
-
-    .status-done {
-      background: rgba(74, 222, 128, 0.1);
-      color: #4ade80;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    /* Stats Grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .stat-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      padding: 0.85rem 1rem;
-      border-radius: 12px;
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.2rem;
-      font-weight: 500;
-    }
-
-    /* Progress bar */
-    .progress-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .progress-text {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .progress-bar-container {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
-      border-radius: 999px;
-      transition: width var(--transition-normal);
-      position: relative;
-    }
-
-    /* Custom Torrent Loader */
-    .torrent-loader {
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .torrent-loader p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .input-group {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .input-field {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 0.6rem 0.85rem;
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.85rem;
-      outline: none;
-      transition: border-color var(--transition-fast);
-    }
-
-    .input-field:focus {
-      border-color: var(--accent-cyan);
-    }
-
-    .btn {
-      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
-      color: #000;
-      border: none;
-      border-radius: 12px;
-      padding: 0.6rem 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: transform var(--transition-fast), filter var(--transition-fast);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.1);
-    }
-
-    .btn:active {
-      transform: translateY(1px);
-    }
-
-    .btn-secondary {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-
-    /* Drag & Drop zone */
-    .drop-zone {
-      border: 2px dashed rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      padding: 1.25rem;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color var(--transition-fast), background var(--transition-fast);
-    }
-
-    .drop-zone:hover, .drop-zone.dragover {
-      border-color: var(--accent-cyan);
-      background: rgba(0, 242, 254, 0.03);
-    }
-
-    .drop-zone i {
-      font-size: 1.5rem;
-      margin-bottom: 0.35rem;
-      color: var(--text-muted);
-    }
-
-    /* Gallery Grid */
+    /* Main Section Layout */
     .gallery-section {
       display: flex;
       flex-direction: column;
@@ -355,22 +129,78 @@
 
     .gallery-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
 
     .gallery-title {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
+    /* Header Progress Indicators */
+    .header-progress-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 320px;
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+    }
+
+    .header-progress-text {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      text-align: left;
+    }
+
+    @media (min-width: 768px) {
+      .header-progress-text {
+        text-align: right;
+      }
+    }
+
+    .header-progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .header-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 8px var(--accent-cyan);
+    }
+
+    /* Gallery Grid */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
     }
 
     /* Media Cards */
@@ -638,41 +468,6 @@
       outline: none;
     }
 
-    /* Torrent Details Panel */
-    .torrent-details {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 1.25rem;
-      margin-top: 1.5rem;
-      font-size: 0.85rem;
-      display: none;
-    }
-
-    .torrent-details.active {
-      display: block;
-    }
-
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    .detail-row:last-child {
-      border-bottom: none;
-    }
-
-    .detail-value {
-      font-family: 'JetBrains Mono', monospace;
-      max-width: 180px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      text-align: right;
-    }
-
     /* Empty state */
     .empty-state {
       grid-column: 1 / -1;
@@ -702,23 +497,6 @@
       max-width: 400px;
       margin: 0 auto;
     }
-
-    .file-input {
-      display: none;
-    }
-
-    .copy-btn {
-      background: none;
-      border: none;
-      color: var(--accent-cyan);
-      cursor: pointer;
-      font-size: 0.9rem;
-      margin-left: 0.35rem;
-    }
-
-    .copy-btn:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
@@ -736,106 +514,31 @@
       <p>Stream high-fidelity photo and video galleries directly from the decentralized BitTorrent network using browser WebRTC peer-to-peer technology.</p>
     </header>
 
-    <div class="grid-container">
-      
-      <!-- Sidebar Control Panel -->
-      <aside class="dashboard">
-        <div class="dashboard-title">
-          <span>Client Status</span>
-          <span id="status-badge" class="status-badge status-idle">
-            <i class="fa-solid fa-circle"></i> <span id="status-text">Idle</span>
-          </span>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label"><i class="fa-solid fa-download"></i> Down Speed</div>
-            <div class="stat-value" id="down-speed">0 B/s</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label"><i class="fa-solid fa-upload"></i> Up Speed</div>
-            <div class="stat-value" id="up-speed">0 B/s</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label"><i class="fa-solid fa-users"></i> Peers</div>
-            <div class="stat-value" id="peer-count">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label"><i class="fa-solid fa-arrows-spin"></i> Ratio</div>
-            <div class="stat-value" id="share-ratio">0.00</div>
+    <!-- Gallery Showcase -->
+    <main class="gallery-section">
+      <div class="gallery-header">
+        <h2 class="gallery-title">
+          <i class="fa-solid fa-images" style="color: var(--accent-cyan);"></i> Media Showcase
+        </h2>
+        
+        <!-- Localized Progress Bar -->
+        <div class="header-progress-container" id="header-progress-container">
+          <span class="header-progress-text" id="header-progress-text">Connecting to P2P swarm...</span>
+          <div class="header-progress-bar-container">
+            <div class="header-progress-bar" id="header-progress-bar"></div>
           </div>
         </div>
+      </div>
 
-        <div class="progress-section">
-          <div class="progress-text">
-            <span>Download Progress</span>
-            <span id="progress-pct" style="font-family: 'JetBrains Mono', monospace;">0%</span>
-          </div>
-          <div class="progress-bar-container">
-            <div class="progress-bar" id="progress-bar"></div>
-          </div>
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Empty State before torrent loads -->
+        <div class="empty-state" id="empty-state">
+          <i class="fa-solid fa-network-wired"></i>
+          <h3>Awaiting Torrent Feed</h3>
+          <p>Loading the site's default torrent catalog from the root directory. Make sure your local seed is running and broadcasting to trackers.</p>
         </div>
-
-        <button id="toggle-details" class="btn btn-secondary" style="width: 100%;" disabled>
-          <i class="fa-solid fa-circle-info"></i> Show Torrent Details
-        </button>
-
-        <div class="torrent-details" id="details-panel">
-          <div class="detail-row">
-            <span>Name</span>
-            <span class="detail-value" id="torrent-name">-</span>
-          </div>
-          <div class="detail-row">
-            <span>Info Hash</span>
-            <span class="detail-value">
-              <span id="torrent-hash">-</span>
-              <button class="copy-btn" id="copy-hash-btn" title="Copy Info Hash" style="display:none;"><i class="fa-regular fa-copy"></i></button>
-            </span>
-          </div>
-          <div class="detail-row">
-            <span>Total Size</span>
-            <span class="detail-value" id="torrent-size">-</span>
-          </div>
-          <div class="detail-row">
-            <span>Remaining Time</span>
-            <span class="detail-value" id="time-remaining">-</span>
-          </div>
-        </div>
-
-        <div class="torrent-loader">
-          <p>Load custom torrent or magnet URI:</p>
-          <div class="input-group">
-            <input type="text" id="torrent-input" class="input-field" placeholder="magnet:?xt=urn:btih:..." aria-label="Magnet URI">
-            <button id="load-btn" class="btn"><i class="fa-solid fa-play"></i></button>
-          </div>
-
-          <div class="drop-zone" id="drop-zone">
-            <i class="fa-solid fa-file-arrow-up"></i>
-            <p style="font-size: 0.8rem; margin: 0;">Drag & Drop a .torrent file or <strong>browse</strong></p>
-            <input type="file" id="file-input" class="file-input" accept=".torrent">
-          </div>
-        </div>
-      </aside>
-
-      <!-- Gallery Showcase -->
-      <main class="gallery-section">
-        <div class="gallery-header">
-          <h2 class="gallery-title">
-            <i class="fa-solid fa-images" style="color: var(--accent-cyan);"></i> Media Showcase
-          </h2>
-        </div>
-
-        <div class="gallery-grid" id="gallery-grid">
-          <!-- Empty State before torrent loads -->
-          <div class="empty-state" id="empty-state">
-            <i class="fa-solid fa-network-wired"></i>
-            <h3>Awaiting Torrent Feed</h3>
-            <p>Loading the site's default torrent catalog from the root directory. If it takes too long, ensure you have seeds on the network or try importing your own torrent file above.</p>
-          </div>
-        </div>
-      </main>
-
-    </div>
+      </div>
+    </main>
   </div>
 
   <!-- Lightbox Modal -->
@@ -856,27 +559,9 @@
     const client = new WebTorrent();
 
     // DOM Elements
-    const statusBadge = document.getElementById('status-badge');
-    const statusText = document.getElementById('status-text');
-    const downSpeed = document.getElementById('down-speed');
-    const upSpeed = document.getElementById('up-speed');
-    const peerCount = document.getElementById('peer-count');
-    const shareRatio = document.getElementById('share-ratio');
-    const progressPct = document.getElementById('progress-pct');
-    const progressBar = document.getElementById('progress-bar');
-    
-    const toggleDetails = document.getElementById('toggle-details');
-    const detailsPanel = document.getElementById('details-panel');
-    const torrentNameVal = document.getElementById('torrent-name');
-    const torrentHashVal = document.getElementById('torrent-hash');
-    const torrentSizeVal = document.getElementById('torrent-size');
-    const timeRemainingVal = document.getElementById('time-remaining');
-    const copyHashBtn = document.getElementById('copy-hash-btn');
-
-    const torrentInput = document.getElementById('torrent-input');
-    const loadBtn = document.getElementById('load-btn');
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
+    const headerProgressContainer = document.getElementById('header-progress-container');
+    const headerProgressText = document.getElementById('header-progress-text');
+    const headerProgressBar = document.getElementById('header-progress-bar');
 
     const galleryGrid = document.getElementById('gallery-grid');
     const emptyState = document.getElementById('empty-state');
@@ -902,7 +587,7 @@
 
     // Helper: Format remaining time
     function formatRemaining(ms) {
-      if (ms === Infinity || isNaN(ms)) return 'Remaining time unknown';
+      if (ms === Infinity || isNaN(ms) || ms <= 0) return 'estimating time...';
       const seconds = Math.floor((ms / 1000) % 60);
       const minutes = Math.floor((ms / (1000 * 60)) % 60);
       const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
@@ -912,25 +597,7 @@
       if (minutes > 0) parts.push(`${minutes}m`);
       if (seconds > 0 || parts.length === 0) parts.push(`${seconds}s`);
       
-      return parts.join(' ');
-    }
-
-    // Set client status styling
-    function setStatus(status) {
-      statusBadge.className = 'status-badge';
-      if (status === 'idle') {
-        statusBadge.classList.add('status-idle');
-        statusText.textContent = 'Idle';
-      } else if (status === 'connecting') {
-        statusBadge.classList.add('status-connecting');
-        statusText.textContent = 'Connecting';
-      } else if (status === 'downloading') {
-        statusBadge.classList.add('status-active');
-        statusText.textContent = 'Downloading';
-      } else if (status === 'done') {
-        statusBadge.classList.add('status-done');
-        statusText.textContent = 'Completed';
-      }
+      return parts.join(' ') + ' remaining';
     }
 
     // Open media in lightbox
@@ -1111,7 +778,7 @@
 
     // Helper to display error in UI
     function showTorrentLoadError(message) {
-      setStatus('idle');
+      headerProgressContainer.style.opacity = '0';
       galleryGrid.innerHTML = `
         <div class="empty-state">
           <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-pink);"></i>
@@ -1133,7 +800,10 @@
         }
       }
 
-      setStatus('connecting');
+      headerProgressContainer.style.opacity = '1';
+      headerProgressText.textContent = 'Connecting to P2P swarm...';
+      headerProgressBar.style.width = '0%';
+      
       galleryGrid.innerHTML = `
         <div class="empty-state">
           <div class="skeleton-spinner" style="margin: 0 auto 1.5rem auto;"></div>
@@ -1141,9 +811,6 @@
           <p>Connecting to WebRTC trackers, discovering peers, and loading files. This could take a moment depending on peer availability.</p>
         </div>
       `;
-
-      // Enable details button
-      toggleDetails.disabled = false;
 
       // Check if input is a string (magnet, infohash or URL)
       if (typeof torrentId === 'string') {
@@ -1183,109 +850,44 @@
     function addTorrentToClient(source) {
       client.add(source, (torrent) => {
         activeTorrent = torrent;
-        setStatus('downloading');
+        headerProgressText.textContent = 'Syncing metadata...';
         
-        // Populate stats & Details
-        torrentNameVal.textContent = torrent.name;
-        torrentHashVal.textContent = torrent.infoHash;
-        torrentSizeVal.textContent = formatBytes(torrent.length);
-        copyHashBtn.style.display = 'inline-block';
-        copyHashBtn.onclick = () => {
-          navigator.clipboard.writeText(torrent.infoHash);
-          copyHashBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-          setTimeout(() => {
-            copyHashBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-          }, 1500);
-        };
-
         // Render file grid
         setupGalleryGrid(torrent.files);
 
         // Stats update interval
         updateInterval = setInterval(() => {
-          // Speed formatting
-          downSpeed.textContent = formatBytes(torrent.downloadSpeed) + '/s';
-          upSpeed.textContent = formatBytes(torrent.uploadSpeed) + '/s';
-          
-          // General info
-          peerCount.textContent = torrent.numPeers;
-          shareRatio.textContent = torrent.ratio.toFixed(2);
-          
           // Progress Percentage
           const progress = torrent.progress;
-          progressPct.textContent = `${Math.floor(progress * 100)}%`;
-          progressBar.style.width = `${progress * 100}%`;
+          const pct = Math.floor(progress * 100);
+          
+          // Speed metrics
+          const speedStr = formatBytes(torrent.downloadSpeed) + '/s';
           
           // Remaining Time
           if (torrent.done) {
-            setStatus('done');
-            timeRemainingVal.textContent = 'Completed';
+            headerProgressText.textContent = `Sync Complete (100%)`;
+            headerProgressBar.style.width = '100%';
+            clearInterval(updateInterval);
+            
+            // Animate a fade to zero opacity shortly after download completion (2 seconds delay)
+            setTimeout(() => {
+              headerProgressContainer.style.opacity = '0';
+              setTimeout(() => {
+                headerProgressContainer.style.display = 'none';
+              }, 1000); // match transition duration
+            }, 2000);
           } else {
-            setStatus('downloading');
-            timeRemainingVal.textContent = formatRemaining(torrent.timeRemaining);
+            const timeRemainingStr = formatRemaining(torrent.timeRemaining);
+            headerProgressText.textContent = `Syncing P2P swarm: ${pct}% at ${speedStr} (${timeRemainingStr})`;
+            headerProgressBar.style.width = `${progress * 100}%`;
           }
         }, 1000);
       });
     }
 
-    // Toggle Details Panel
-    toggleDetails.addEventListener('click', () => {
-      detailsPanel.classList.toggle('active');
-      toggleDetails.innerHTML = detailsPanel.classList.contains('active') 
-        ? '<i class="fa-solid fa-circle-chevron-up"></i> Hide Torrent Details' 
-        : '<i class="fa-solid fa-circle-info"></i> Show Torrent Details';
-    });
-
-    // Custom Load Button Click
-    loadBtn.addEventListener('click', () => {
-      const val = torrentInput.value.trim();
-      if (val) {
-        loadTorrent(val);
-      }
-    });
-
-    torrentInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        const val = torrentInput.value.trim();
-        if (val) loadTorrent(val);
-      }
-    });
-
-    // File Drop Zone handler
-    dropZone.addEventListener('click', () => fileInput.click());
-    
-    fileInput.addEventListener('change', () => {
-      if (fileInput.files.length > 0) {
-        loadTorrent(fileInput.files[0]);
-      }
-    });
-
-    // Drag & Drop behaviors
-    ['dragenter', 'dragover'].forEach(eventName => {
-      dropZone.addEventListener(eventName, (e) => {
-        e.preventDefault();
-        dropZone.classList.add('dragover');
-      }, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-      dropZone.addEventListener(eventName, (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('dragover');
-      }, false);
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-      const dt = e.dataTransfer;
-      const files = dt.files;
-      if (files.length > 0) {
-        loadTorrent(files[0]);
-      }
-    });
-
     // Auto-load site's default torrent on start
     window.addEventListener('DOMContentLoaded', () => {
-      // Point directly to the companion torrent hosted on the same server
       loadTorrent('gallery.torrent');
     });
 
