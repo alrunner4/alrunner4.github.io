@@ -23,7 +23,6 @@ pkgs.stdenv.mkDerivation {
 
     mktorrent -v \
       -a wss://tracker.openwebtorrent.com,wss://tracker.btorrent.xyz \
-      -w https://alrunner4.github.io/ \
       -o gallery.torrent \
       gallery-media
   '';

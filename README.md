@@ -33,7 +33,7 @@ make build-gallery
 
 This task will:
 1. Run `nix-build` to compile the derivation defined in `default.nix`.
-2. Generate `gallery.torrent` with pre-configured public WebRTC trackers (`wss://tracker.openwebtorrent.com`, `wss://tracker.btorrent.xyz`) and web seed configurations.
+2. Generate `gallery.torrent` with pre-configured public WebRTC trackers (`wss://tracker.openwebtorrent.com`, `wss://tracker.btorrent.xyz`).
 3. Extract `gallery.torrent` from the Nix store and place it in the root of your repository.
 
 ### 3. Local Testing
