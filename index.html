@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AetherStream - P2P Media Gallery</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="A decentralized, high-performance photo and video gallery powered by WebTorrent and WebRTC. Stream media directly from the BitTorrent P2P network.">
+  <meta name="keywords" content="WebTorrent, BitTorrent, P2P, WebRTC, Gallery, Photo, Video, Streaming, Serverless">
+  
+  <!-- Fonts and Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-primary: #080c14;
+      --bg-secondary: rgba(15, 22, 38, 0.7);
+      --bg-tertiary: rgba(22, 32, 56, 0.5);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-cyan: #00f2fe;
+      --accent-purple: #9b51e0;
+      --accent-pink: #ff007f;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --glass-blur: blur(16px);
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Background glow decorations */
+    .glow-bg {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(130px);
+      opacity: 0.15;
+    }
+
+    .glow-cyan {
+      background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
+      top: -200px;
+      left: -200px;
+    }
+
+    .glow-purple {
+      background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+      bottom: -200px;
+      right: -200px;
+    }
+
+    /* Container & Header */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .logo-icon {
+      font-size: 2.25rem;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: linear-gradient(to right, #ffffff, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0.75rem auto 0 auto;
+      font-weight: 300;
+    }
+
+    /* Grid & Cards Layout */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+      .grid-container {
+        grid-template-columns: 320px 1fr;
+      }
+    }
+
+    /* Dashboard Sidebar */
+    .dashboard {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 1.75rem;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      height: fit-content;
+      position: sticky;
+      top: 2rem;
+    }
+
+    .dashboard-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.75rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      margin-left: auto;
+    }
+
+    .status-idle {
+      background: rgba(156, 163, 175, 0.1);
+      color: var(--text-muted);
+    }
+
+    .status-connecting {
+      background: rgba(254, 240, 138, 0.1);
+      color: #facc15;
+      animation: pulse 1.5s infinite;
+    }
+
+    .status-active {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-cyan);
+    }
+
+    .status-done {
+      background: rgba(74, 222, 128, 0.1);
+      color: #4ade80;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* Progress bar */
+    .progress-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+      border-radius: 999px;
+      transition: width var(--transition-normal);
+      position: relative;
+    }
+
+    /* Custom Torrent Loader */
+    .torrent-loader {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .torrent-loader p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .input-field {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.6rem 0.85rem;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .input-field:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: transform var(--transition-fast), filter var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Drag & Drop zone */
+    .drop-zone {
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 242, 254, 0.03);
+    }
+
+    .drop-zone i {
+      font-size: 1.5rem;
+      margin-bottom: 0.35rem;
+      color: var(--text-muted);
+    }
+
+    /* Gallery Grid */
+    .gallery-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gallery-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Media Cards */
+    .media-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .media-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 242, 254, 0.2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .media-preview-container {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .media-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+    }
+
+    .media-preview.loaded {
+      opacity: 1;
+    }
+
+    /* Skeleton Loader */
+    .skeleton {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .skeleton-spinner {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 3px solid rgba(255, 255, 255, 0.05);
+      border-top-color: var(--accent-cyan);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .skeleton-progress {
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    /* Card Details */
+    .media-info {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .media-name {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .media-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+
+    .media-size {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .media-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .badge-image {
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+    }
+
+    .badge-video {
+      color: var(--accent-pink);
+      border: 1px solid rgba(255, 0, 127, 0.2);
+    }
+
+    /* Action Overlay on Card Preview */
+    .media-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(8, 12, 20, 0.6);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      z-index: 2;
+    }
+
+    .media-preview-container:hover .media-overlay {
+      opacity: 1;
+    }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .icon-btn:hover {
+      background: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 7, 12, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+      z-index: 1001;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .lightbox-media {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+      display: none;
+    }
+
+    .lightbox-media.active {
+      display: block;
+    }
+
+    .lightbox-title {
+      margin-top: 1.5rem;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: white;
+      text-align: center;
+    }
+
+    /* Video player specific styles */
+    video.lightbox-media {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: black;
+      outline: none;
+    }
+
+    /* Torrent Details Panel */
+    .torrent-details {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .torrent-details.active {
+      display: block;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-value {
+      font-family: 'JetBrains Mono', monospace;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    /* Empty state */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      border: 2px dashed var(--border-color);
+      border-radius: 24px;
+      background: var(--bg-secondary);
+      backdrop-filter: var(--glass-blur);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .empty-state h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+      color: var(--text-muted);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: var(--accent-cyan);
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-left: 0.35rem;
+    }
+
+    .copy-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background decorative glows -->
+  <div class="glow-bg glow-cyan"></div>
+  <div class="glow-bg glow-purple"></div>
+
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <i class="fa-solid fa-circle-nodes logo-icon"></i>
+      </div>
+      <h1>AetherStream</h1>
+      <p>Stream high-fidelity photo and video galleries directly from the decentralized BitTorrent network using browser WebRTC peer-to-peer technology.</p>
+    </header>
+
+    <div class="grid-container">
+      
+      <!-- Sidebar Control Panel -->
+      <aside class="dashboard">
+        <div class="dashboard-title">
+          <span>Client Status</span>
+          <span id="status-badge" class="status-badge status-idle">
+            <i class="fa-solid fa-circle"></i> <span id="status-text">Idle</span>
+          </span>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label"><i class="fa-solid fa-download"></i> Down Speed</div>
+            <div class="stat-value" id="down-speed">0 B/s</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label"><i class="fa-solid fa-upload"></i> Up Speed</div>
+            <div class="stat-value" id="up-speed">0 B/s</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label"><i class="fa-solid fa-users"></i> Peers</div>
+            <div class="stat-value" id="peer-count">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label"><i class="fa-solid fa-arrows-spin"></i> Ratio</div>
+            <div class="stat-value" id="share-ratio">0.00</div>
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-text">
+            <span>Download Progress</span>
+            <span id="progress-pct" style="font-family: 'JetBrains Mono', monospace;">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <button id="toggle-details" class="btn btn-secondary" style="width: 100%;" disabled>
+          <i class="fa-solid fa-circle-info"></i> Show Torrent Details
+        </button>
+
+        <div class="torrent-details" id="details-panel">
+          <div class="detail-row">
+            <span>Name</span>
+            <span class="detail-value" id="torrent-name">-</span>
+          </div>
+          <div class="detail-row">
+            <span>Info Hash</span>
+            <span class="detail-value">
+              <span id="torrent-hash">-</span>
+              <button class="copy-btn" id="copy-hash-btn" title="Copy Info Hash" style="display:none;"><i class="fa-regular fa-copy"></i></button>
+            </span>
+          </div>
+          <div class="detail-row">
+            <span>Total Size</span>
+            <span class="detail-value" id="torrent-size">-</span>
+          </div>
+          <div class="detail-row">
+            <span>Remaining Time</span>
+            <span class="detail-value" id="time-remaining">-</span>
+          </div>
+        </div>
+
+        <div class="torrent-loader">
+          <p>Load custom torrent or magnet URI:</p>
+          <div class="input-group">
+            <input type="text" id="torrent-input" class="input-field" placeholder="magnet:?xt=urn:btih:..." aria-label="Magnet URI">
+            <button id="load-btn" class="btn"><i class="fa-solid fa-play"></i></button>
+          </div>
+
+          <div class="drop-zone" id="drop-zone">
+            <i class="fa-solid fa-file-arrow-up"></i>
+            <p style="font-size: 0.8rem; margin: 0;">Drag & Drop a .torrent file or <strong>browse</strong></p>
+            <input type="file" id="file-input" class="file-input" accept=".torrent">
+          </div>
+        </div>
+      </aside>
+
+      <!-- Gallery Showcase -->
+      <main class="gallery-section">
+        <div class="gallery-header">
+          <h2 class="gallery-title">
+            <i class="fa-solid fa-images" style="color: var(--accent-cyan);"></i> Media Showcase
+          </h2>
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid">
+          <!-- Empty State before torrent loads -->
+          <div class="empty-state" id="empty-state">
+            <i class="fa-solid fa-network-wired"></i>
+            <h3>Awaiting Torrent Feed</h3>
+            <p>Loading the site's default torrent catalog from the root directory. If it takes too long, ensure you have seeds on the network or try importing your own torrent file above.</p>
+          </div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close Lightbox"><i class="fa-solid fa-xmark"></i></button>
+    <div class="lightbox-content">
+      <img class="lightbox-media" id="lightbox-img" src="" alt="Lightbox image">
+      <video class="lightbox-media" id="lightbox-video" controls autoplay></video>
+    </div>
+    <div class="lightbox-title" id="lightbox-title">File Name</div>
+  </div>
+
+  <!-- WebTorrent Library -->
+  <script src="https://cdn.jsdelivr.net/npm/webtorrent@1/webtorrent.min.js"></script>
+
+  <script>
+    // Initialize WebTorrent client
+    const client = new WebTorrent();
+
+    // DOM Elements
+    const statusBadge = document.getElementById('status-badge');
+    const statusText = document.getElementById('status-text');
+    const downSpeed = document.getElementById('down-speed');
+    const upSpeed = document.getElementById('up-speed');
+    const peerCount = document.getElementById('peer-count');
+    const shareRatio = document.getElementById('share-ratio');
+    const progressPct = document.getElementById('progress-pct');
+    const progressBar = document.getElementById('progress-bar');
+    
+    const toggleDetails = document.getElementById('toggle-details');
+    const detailsPanel = document.getElementById('details-panel');
+    const torrentNameVal = document.getElementById('torrent-name');
+    const torrentHashVal = document.getElementById('torrent-hash');
+    const torrentSizeVal = document.getElementById('torrent-size');
+    const timeRemainingVal = document.getElementById('time-remaining');
+    const copyHashBtn = document.getElementById('copy-hash-btn');
+
+    const torrentInput = document.getElementById('torrent-input');
+    const loadBtn = document.getElementById('load-btn');
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+
+    const galleryGrid = document.getElementById('gallery-grid');
+    const emptyState = document.getElementById('empty-state');
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxVideo = document.getElementById('lightbox-video');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    let activeTorrent = null;
+    let updateInterval = null;
+
+    // Helper: Format byte count to human readable
+    function formatBytes(bytes, decimals = 2) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const dm = decimals < 0 ? 0 : decimals;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
+
+    // Helper: Format remaining time
+    function formatRemaining(ms) {
+      if (ms === Infinity || isNaN(ms)) return 'Remaining time unknown';
+      const seconds = Math.floor((ms / 1000) % 60);
+      const minutes = Math.floor((ms / (1000 * 60)) % 60);
+      const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+      
+      const parts = [];
+      if (hours > 0) parts.push(`${hours}h`);
+      if (minutes > 0) parts.push(`${minutes}m`);
+      if (seconds > 0 || parts.length === 0) parts.push(`${seconds}s`);
+      
+      return parts.join(' ');
+    }
+
+    // Set client status styling
+    function setStatus(status) {
+      statusBadge.className = 'status-badge';
+      if (status === 'idle') {
+        statusBadge.classList.add('status-idle');
+        statusText.textContent = 'Idle';
+      } else if (status === 'connecting') {
+        statusBadge.classList.add('status-connecting');
+        statusText.textContent = 'Connecting';
+      } else if (status === 'downloading') {
+        statusBadge.classList.add('status-active');
+        statusText.textContent = 'Downloading';
+      } else if (status === 'done') {
+        statusBadge.classList.add('status-done');
+        statusText.textContent = 'Completed';
+      }
+    }
+
+    // Open media in lightbox
+    function openLightbox(file, type, blobUrl) {
+      lightboxTitle.textContent = file.name;
+      lightbox.classList.add('active');
+
+      if (type === 'image') {
+        lightboxImg.src = blobUrl;
+        lightboxImg.classList.add('active');
+        lightboxVideo.classList.remove('active');
+        lightboxVideo.pause();
+      } else if (type === 'video') {
+        lightboxVideo.src = blobUrl;
+        lightboxVideo.classList.add('active');
+        lightboxImg.classList.remove('active');
+        lightboxVideo.load();
+        lightboxVideo.play();
+      }
+    }
+
+    // Close lightbox
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+      lightboxVideo.src = '';
+      lightboxVideo.pause();
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target === lightbox.querySelector('.lightbox-content')) {
+        closeLightbox();
+      }
+    });
+
+    // Populate gallery layout
+    function setupGalleryGrid(files) {
+      galleryGrid.innerHTML = '';
+      
+      // Filter image and video files
+      const mediaFiles = files.filter(f => {
+        const ext = f.name.split('.').pop().toLowerCase();
+        return ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg', 'mp4', 'webm', 'ogg'].includes(ext);
+      });
+
+      if (mediaFiles.length === 0) {
+        galleryGrid.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <h3>No Media Found</h3>
+            <p>This torrent doesn't seem to contain any supported image or video formats.</p>
+          </div>
+        `;
+        return;
+      }
+
+      mediaFiles.forEach(file => {
+        const ext = file.name.split('.').pop().toLowerCase();
+        const isVideo = ['mp4', 'webm', 'ogg'].includes(ext);
+        const fileType = isVideo ? 'video' : 'image';
+        const badgeClass = isVideo ? 'badge-video' : 'badge-image';
+        const badgeIcon = isVideo ? 'fa-video' : 'fa-image';
+
+        // Card Container
+        const card = document.createElement('div');
+        card.className = 'media-card';
+        card.id = `card-${file.name.replace(/[^a-zA-Z0-9]/g, '_')}`;
+
+        // Preview Element
+        card.innerHTML = `
+          <div class="media-preview-container">
+            <div class="skeleton" id="skeleton-${card.id}">
+              <div class="skeleton-spinner"></div>
+              <div class="skeleton-progress" id="progress-${card.id}">0%</div>
+            </div>
+            <div class="media-overlay" id="overlay-${card.id}" style="display:none;">
+              <button class="icon-btn play-btn" id="play-${card.id}" title="View Media">
+                <i class="fa-solid ${isVideo ? 'fa-play' : 'fa-maximize'}"></i>
+              </button>
+              <button class="icon-btn download-btn" id="dl-${card.id}" title="Download File">
+                <i class="fa-solid fa-download"></i>
+              </button>
+            </div>
+            <div class="media-preview-target" style="width:100%; height:100%;"></div>
+          </div>
+          <div class="media-info">
+            <div class="media-name" title="${file.name}">${file.name}</div>
+            <div class="media-meta">
+              <span class="media-badge ${badgeClass}"><i class="fa-solid ${badgeIcon}"></i> ${fileType}</span>
+              <span class="media-size">${formatBytes(file.length)}</span>
+            </div>
+          </div>
+        `;
+
+        galleryGrid.appendChild(card);
+
+        // Track local download progress for each file
+        const updateFileProgress = () => {
+          const fileProg = file.progress;
+          const progEl = document.getElementById(`progress-${card.id}`);
+          if (progEl) {
+            progEl.textContent = `${Math.floor(fileProg * 100)}%`;
+          }
+          if (file.done) {
+            clearInterval(fileInterval);
+          }
+        };
+        const fileInterval = setInterval(updateFileProgress, 500);
+
+        // Render file content using WebTorrent once it is loaded
+        file.getBlobURL((err, blobUrl) => {
+          clearInterval(fileInterval);
+          if (err) {
+            console.error('Error getting blob URL:', err);
+            const skeletonEl = document.getElementById(`skeleton-${card.id}`);
+            if (skeletonEl) {
+              skeletonEl.innerHTML = `<i class="fa-solid fa-xmark" style="color: var(--accent-pink); font-size: 1.5rem;"></i><p style="font-size:0.75rem;">Load Error</p>`;
+            }
+            return;
+          }
+
+          // Hide skeleton
+          const skeleton = document.getElementById(`skeleton-${card.id}`);
+          if (skeleton) skeleton.style.display = 'none';
+
+          // Insert preview element
+          const target = card.querySelector('.media-preview-target');
+          let previewElement;
+          if (isVideo) {
+            previewElement = document.createElement('video');
+            previewElement.className = 'media-preview loaded';
+            previewElement.muted = true;
+            previewElement.playsInline = true;
+            previewElement.src = blobUrl;
+            // Hover autoplay video preview
+            card.addEventListener('mouseenter', () => {
+              previewElement.play().catch(() => {});
+            });
+            card.addEventListener('mouseleave', () => {
+              previewElement.pause();
+              previewElement.currentTime = 0;
+            });
+          } else {
+            previewElement = document.createElement('img');
+            previewElement.className = 'media-preview loaded';
+            previewElement.src = blobUrl;
+            previewElement.alt = file.name;
+          }
+          target.appendChild(previewElement);
+
+          // Show action overlay
+          const overlay = document.getElementById(`overlay-${card.id}`);
+          if (overlay) overlay.style.display = 'flex';
+
+          // Bind Actions
+          document.getElementById(`play-${card.id}`).addEventListener('click', () => {
+            openLightbox(file, fileType, blobUrl);
+          });
+
+          document.getElementById(`dl-${card.id}`).addEventListener('click', () => {
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = file.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          });
+        });
+      });
+    }
+
+    // Global WebTorrent Error Handler
+    client.on('error', (err) => {
+      console.error('WebTorrent Global Error:', err);
+      showTorrentLoadError(`WebTorrent error: ${err.message || err}`);
+    });
+
+    // Helper to display error in UI
+    function showTorrentLoadError(message) {
+      setStatus('idle');
+      galleryGrid.innerHTML = `
+        <div class="empty-state">
+          <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-pink);"></i>
+          <h3>Torrent Load Failed</h3>
+          <p>${message}</p>
+        </div>
+      `;
+    }
+
+    // Load torrent helper
+    function loadTorrent(torrentId) {
+      // Clean up previous torrent if running
+      if (activeTorrent) {
+        clearInterval(updateInterval);
+        try {
+          client.remove(activeTorrent.infoHash);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      setStatus('connecting');
+      galleryGrid.innerHTML = `
+        <div class="empty-state">
+          <div class="skeleton-spinner" style="margin: 0 auto 1.5rem auto;"></div>
+          <h3>Resolving Torrent Swarm</h3>
+          <p>Connecting to WebRTC trackers, discovering peers, and loading files. This could take a moment depending on peer availability.</p>
+        </div>
+      `;
+
+      // Enable details button
+      toggleDetails.disabled = false;
+
+      // Check if input is a string (magnet, infohash or URL)
+      if (typeof torrentId === 'string') {
+        const trimmed = torrentId.trim();
+        
+        // Determine if it is a magnet URI or Info Hash
+        const isMagnet = trimmed.startsWith('magnet:?');
+        const isInfoHash = /^[0-9a-fA-F]{40}$/.test(trimmed) || /^[2-7a-zA-Z]{32}$/.test(trimmed);
+
+        if (isMagnet || isInfoHash) {
+          addTorrentToClient(trimmed);
+        } else {
+          // Assume it is a URL (relative or absolute)
+          const absoluteUrl = new URL(trimmed, window.location.href).href;
+          
+          fetch(absoluteUrl)
+            .then(res => {
+              if (!res.ok) {
+                throw new Error(`HTTP error ${res.status}: ${res.statusText}`);
+              }
+              return res.blob();
+            })
+            .then(blob => {
+              addTorrentToClient(blob);
+            })
+            .catch(err => {
+              showTorrentLoadError(`Failed to download torrent file from URL.<br><br><strong>URL:</strong> <code>${absoluteUrl}</code><br><strong>Error:</strong> ${err.message}<br><br>Please verify that the file exists and the build script has run (try <code>make build-gallery</code> locally).`);
+            });
+        }
+      } else {
+        // File or Blob from Drag & Drop or Input
+        addTorrentToClient(torrentId);
+      }
+    }
+
+    // Internal function to add the parsed source to WebTorrent
+    function addTorrentToClient(source) {
+      client.add(source, (torrent) => {
+        activeTorrent = torrent;
+        setStatus('downloading');
+        
+        // Populate stats & Details
+        torrentNameVal.textContent = torrent.name;
+        torrentHashVal.textContent = torrent.infoHash;
+        torrentSizeVal.textContent = formatBytes(torrent.length);
+        copyHashBtn.style.display = 'inline-block';
+        copyHashBtn.onclick = () => {
+          navigator.clipboard.writeText(torrent.infoHash);
+          copyHashBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+          setTimeout(() => {
+            copyHashBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          }, 1500);
+        };
+
+        // Render file grid
+        setupGalleryGrid(torrent.files);
+
+        // Stats update interval
+        updateInterval = setInterval(() => {
+          // Speed formatting
+          downSpeed.textContent = formatBytes(torrent.downloadSpeed) + '/s';
+          upSpeed.textContent = formatBytes(torrent.uploadSpeed) + '/s';
+          
+          // General info
+          peerCount.textContent = torrent.numPeers;
+          shareRatio.textContent = torrent.ratio.toFixed(2);
+          
+          // Progress Percentage
+          const progress = torrent.progress;
+          progressPct.textContent = `${Math.floor(progress * 100)}%`;
+          progressBar.style.width = `${progress * 100}%`;
+          
+          // Remaining Time
+          if (torrent.done) {
+            setStatus('done');
+            timeRemainingVal.textContent = 'Completed';
+          } else {
+            setStatus('downloading');
+            timeRemainingVal.textContent = formatRemaining(torrent.timeRemaining);
+          }
+        }, 1000);
+      });
+    }
+
+    // Toggle Details Panel
+    toggleDetails.addEventListener('click', () => {
+      detailsPanel.classList.toggle('active');
+      toggleDetails.innerHTML = detailsPanel.classList.contains('active') 
+        ? '<i class="fa-solid fa-circle-chevron-up"></i> Hide Torrent Details' 
+        : '<i class="fa-solid fa-circle-info"></i> Show Torrent Details';
+    });
+
+    // Custom Load Button Click
+    loadBtn.addEventListener('click', () => {
+      const val = torrentInput.value.trim();
+      if (val) {
+        loadTorrent(val);
+      }
+    });
+
+    torrentInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const val = torrentInput.value.trim();
+        if (val) loadTorrent(val);
+      }
+    });
+
+    // File Drop Zone handler
+    dropZone.addEventListener('click', () => fileInput.click());
+    
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        loadTorrent(fileInput.files[0]);
+      }
+    });
+
+    // Drag & Drop behaviors
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+      }, false);
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length > 0) {
+        loadTorrent(files[0]);
+      }
+    });
+
+    // Auto-load site's default torrent on start
+    window.addEventListener('DOMContentLoaded', () => {
+      // Point directly to the companion torrent hosted on the same server
+      loadTorrent('gallery.torrent');
+    });
+
+  </script>
+</body>
+</html>
