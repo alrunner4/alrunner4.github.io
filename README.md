@@ -69,8 +69,8 @@ Since GitHub is not hosting your images, WebTorrent visitors will need at least 
 
 ```mermaid
 sequenceDiagram
-    actor Visitor as Web Visitor
     participant GH as GitHub Pages
+    actor Visitor as Web Visitor
     participant Track as WebRTC Trackers
     actor Seed as Your Seeding Client
 
