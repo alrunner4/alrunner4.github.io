@@ -10,29 +10,46 @@ pkgs.stdenv.mkDerivation {
   # Include mktorrent as a build dependency
   nativeBuildInputs = [ pkgs.mktorrent ];
 
-  # Build phase: generate the .torrent file from gallery-media folder
+  # Build phase: generate .torrent files for each subdirectory and compile galleries.json
   buildPhase = ''
-    echo "Creating torrent from gallery-media folder..."
-    
-    # We specify WebTorrent WebRTC trackers using -a
-    # -a: wss://tracker.openwebtorrent.com
-    # -a: wss://tracker.btorrent.xyz
-    # We also embed the GitHub Pages production URL as a Web Seed using -w
-    # Remove existing torrent file in the build tree if it exists to prevent mktorrent from failing
-    rm -f gallery.torrent
+    echo "Creating torrent directories..."
+    mkdir -p torrents
+    rm -rf torrents/*
 
-    mktorrent -v \
-      -a wss://tracker.openwebtorrent.com,wss://tracker.btorrent.xyz \
-      -o gallery.torrent \
-      gallery-media
+    echo "[" > torrents/galleries.json
+    first=1
+
+    # Loop through subfolders in gallery-media to build individual torrents
+    for dir in gallery-media/*; do
+      if [ -d "$dir" -o -L "$dir" ]; then
+        name=$(basename "$dir")
+        echo "Processing gallery: $name..."
+        
+        # Compile torrent for this subdirectory
+        mktorrent -v \
+          -a wss://tracker.openwebtorrent.com,wss://tracker.btorrent.xyz \
+          -o torrents/"$name".torrent \
+          gallery-media/"$name"
+
+        # Append to manifest JSON
+        if [ $first -eq 0 ]; then
+          echo "," >> torrents/galleries.json
+        fi
+        echo "  { \"name\": \"$name\", \"file\": \"torrents/$name.torrent\" }" >> torrents/galleries.json
+        first=0
+      fi
+    done
+
+    echo "]" >> torrents/galleries.json
+    echo "Compiled galleries manifest."
   '';
 
-  # Install phase: bundle the client html and torrent file for deployment
+  # Install phase: bundle the client html and torrents directory for deployment
   installPhase = ''
     mkdir -p $out
     cp index.html $out/index.html
-    cp gallery.torrent $out/gallery.torrent
+    cp -r torrents $out/
     
-    echo "Build completed. Artifacts index.html and gallery.torrent are in $out."
+    echo "Build completed. Artifacts are placed in $out."
   '';
 }

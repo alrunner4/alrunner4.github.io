@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AetherStream - P2P Media Gallery</title>
+  <title>Photography | AlexanderCarter.net</title>
   
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="A decentralized, high-performance photo and video gallery powered by WebTorrent and WebRTC. Stream media directly from the BitTorrent P2P network.">
-  <meta name="keywords" content="WebTorrent, BitTorrent, P2P, WebRTC, Gallery, Photo, Video, Streaming, Serverless">
+  <meta name="description" content="Alex's galleries">
+  <meta name="keywords" content="Photography, Art, Nightlife">
   
   <!-- Fonts and Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -145,12 +144,64 @@
       }
     }
 
+    .gallery-title-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+
     .gallery-title {
       font-size: 1.75rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 0.75rem;
+    }
+
+    /* custom select styling */
+    .select-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .gallery-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: rgba(15, 22, 38, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.5rem 2.25rem 0.5rem 1rem;
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+    }
+
+    .gallery-select:focus, .gallery-select:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.15);
+    }
+
+    .select-chevron {
+      position: absolute;
+      right: 0.85rem;
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 0.75rem;
+      transition: transform var(--transition-fast);
+    }
+
+    .gallery-select:focus + .select-chevron {
+      transform: rotate(180deg);
+      color: var(--accent-cyan);
     }
 
     /* Header Progress Indicators */
@@ -510,16 +561,24 @@
       <div class="logo-container">
         <i class="fa-solid fa-circle-nodes logo-icon"></i>
       </div>
-      <h1>AetherStream</h1>
-      <p>Stream high-fidelity photo and video galleries directly from the decentralized BitTorrent network using browser WebRTC peer-to-peer technology.</p>
+      <h1>Photography by Alexander Carter</h1>
     </header>
 
     <!-- Gallery Showcase -->
     <main class="gallery-section">
       <div class="gallery-header">
-        <h2 class="gallery-title">
-          <i class="fa-solid fa-images" style="color: var(--accent-cyan);"></i> Media Showcase
-        </h2>
+        <div class="gallery-title-wrapper">
+          <h2 class="gallery-title">
+            <i class="fa-solid fa-images" style="color: var(--accent-cyan);"></i> 
+            <span id="gallery-title-text">Gallery</span>
+          </h2>
+          <div class="select-wrapper">
+            <select id="gallery-select" class="gallery-select" aria-label="Select Gallery">
+              <option value="">Loading galleries...</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-chevron"></i>
+          </div>
+        </div>
         
         <!-- Localized Progress Bar -->
         <div class="header-progress-container" id="header-progress-container">
@@ -535,7 +594,7 @@
         <div class="empty-state" id="empty-state">
           <i class="fa-solid fa-network-wired"></i>
           <h3>Awaiting Torrent Feed</h3>
-          <p>Loading the site's default torrent catalog from the root directory. Make sure your local seed is running and broadcasting to trackers.</p>
+          <p>Please compile the galleries manifest by running <code>make build-gallery</code> locally.</p>
         </div>
       </div>
     </main>
@@ -565,6 +624,9 @@
 
     const galleryGrid = document.getElementById('gallery-grid');
     const emptyState = document.getElementById('empty-state');
+    
+    const gallerySelect = document.getElementById('gallery-select');
+    const galleryTitleText = document.getElementById('gallery-title-text');
 
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -574,20 +636,21 @@
 
     let activeTorrent = null;
     let updateInterval = null;
+    let galleryList = [];
 
     // Helper: Format byte count to human readable
     function formatBytes(bytes, decimals = 2) {
-      if (bytes === 0) return '0 Bytes';
+      if (bytes === 0) return '0 bytes';
       const k = 1024;
       const dm = decimals < 0 ? 0 : decimals;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+      const sizes = ['bytes', 'KB', 'MB', 'GB', 'TB'];
       const i = Math.floor(Math.log(bytes) / Math.log(k));
       return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 
     // Helper: Format remaining time
     function formatRemaining(ms) {
-      if (ms === Infinity || isNaN(ms) || ms <= 0) return 'estimating time...';
+      if (ms === Infinity || isNaN(ms) || ms <= 0) return '';
       const seconds = Math.floor((ms / 1000) % 60);
       const minutes = Math.floor((ms / (1000 * 60)) % 60);
       const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
@@ -597,7 +660,7 @@
       if (minutes > 0) parts.push(`${minutes}m`);
       if (seconds > 0 || parts.length === 0) parts.push(`${seconds}s`);
       
-      return parts.join(' ') + ' remaining';
+      return " " + parts.join(' ') + ' remaining';
     }
 
     // Open media in lightbox
@@ -800,6 +863,9 @@
         }
       }
 
+      // Reset progress bar elements
+      headerProgressContainer.style.display = 'flex';
+      headerProgressContainer.offsetHeight; // force reflow for opacity transition
       headerProgressContainer.style.opacity = '1';
       headerProgressText.textContent = 'Connecting to P2P swarm...';
       headerProgressBar.style.width = '0%';
@@ -850,7 +916,7 @@
     function addTorrentToClient(source) {
       client.add(source, (torrent) => {
         activeTorrent = torrent;
-        headerProgressText.textContent = 'Syncing metadata...';
+        headerProgressText.textContent = 'loading gallery metadata';
         
         // Render file grid
         setupGalleryGrid(torrent.files);
@@ -866,7 +932,7 @@
           
           // Remaining Time
           if (torrent.done) {
-            headerProgressText.textContent = `Sync Complete (100%)`;
+            headerProgressText.textContent = `gallery download complete`;
             headerProgressBar.style.width = '100%';
             clearInterval(updateInterval);
             
@@ -879,16 +945,59 @@
             }, 2000);
           } else {
             const timeRemainingStr = formatRemaining(torrent.timeRemaining);
-            headerProgressText.textContent = `Syncing P2P swarm: ${pct}% at ${speedStr} (${timeRemainingStr})`;
+            headerProgressText.textContent = `downloading gallery: ${pct}% at ${speedStr}${timeRemainingStr}`;
             headerProgressBar.style.width = `${progress * 100}%`;
           }
         }, 1000);
       });
     }
 
+    // Fetch galleries JSON manifest
+    function loadGalleriesManifest() {
+      fetch('torrents/galleries.json')
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`HTTP error ${res.status}: ${res.statusText}`);
+          }
+          return res.json();
+        })
+        .then(data => {
+          galleryList = data;
+          if (galleryList.length === 0) {
+            showTorrentLoadError("No galleries found in torrents/galleries.json. Please put media folders in gallery-media/ and run 'make build-gallery' locally.");
+            return;
+          }
+
+          // Populate select dropdown
+          gallerySelect.innerHTML = '';
+          galleryList.forEach((gal, index) => {
+            const opt = document.createElement('option');
+            opt.value = index;
+            opt.textContent = gal.name;
+            gallerySelect.appendChild(opt);
+          });
+
+          // Bind dropdown change event
+          gallerySelect.onchange = (e) => {
+            const selectedIndex = e.target.value;
+            const selectedGal = galleryList[selectedIndex];
+            galleryTitleText.textContent = selectedGal.name;
+            loadTorrent(selectedGal.file);
+          };
+
+          // Load first gallery by default
+          const firstGal = galleryList[0];
+          galleryTitleText.textContent = firstGal.name;
+          loadTorrent(firstGal.file);
+        })
+        .catch(err => {
+          showTorrentLoadError(`Failed to load galleries manifest.<br><br><strong>Error:</strong> ${err.message}<br><br>Please verify you have run the build pipeline (run <code>make build-gallery</code> locally) to compile the media torrents.`);
+        });
+    }
+
     // Auto-load site's default torrent on start
     window.addEventListener('DOMContentLoaded', () => {
-      loadTorrent('gallery.torrent');
+      loadGalleriesManifest();
     });
 
   </script>

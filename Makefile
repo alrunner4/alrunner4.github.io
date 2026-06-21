@@ -20,12 +20,13 @@ resume-htmldoc.pdf: resume.html
 
 build-gallery:
 	nix-build
-	cp -f result/gallery.torrent ./
+	rm -rf torrents
+	cp -r result/torrents ./
 	rm -f result
-	@echo "Build successful! Created gallery.torrent from gallery-media."
+	@echo "Build successful! Created torrents folder from gallery-media."
 
 clean-gallery:
-	rm -f gallery.torrent
+	rm -rf torrents
 	rm -f result
 
 serve:
