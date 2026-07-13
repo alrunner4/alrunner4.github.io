@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+# Usage:
+#   ./seed.sh /path/to/torrents /path/to/media [webtorrent args...]
+#
+# Example:
+#   ./seed.sh ~/torrents ~/media seed --keep-seeding *.torrent
+
+TORRENTS_DIR=$(realpath "$1")
+MEDIA_DIR=$(realpath "$2")
+shift 2
+
+IMAGE="webtorrent"
+
+docker run \
+  --rm \
+  --name webtorrent-seeder \
+  -v "${TORRENTS_DIR}:/torrents:ro" \
+  -v "${MEDIA_DIR}:/media:ro" \
+  "${IMAGE}" seed --verbose /torrents --out /media
