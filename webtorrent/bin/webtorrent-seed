@@ -9,13 +9,20 @@ set -euo pipefail
 
 TORRENTS_DIR=$(realpath "$1")
 MEDIA_DIR=$(realpath "$2")
-shift 2
+PORT=$3
+shift 3
 
 IMAGE="webtorrent"
 
-docker run \
-  --rm \
+set -x
+makemagnet() {
+	echo "magnet:?xt=urn:btih:$(nix shell nixpkgs#transmission_4 --command transmission-show -i "$1"  | awk '/Hash v1:/ {print $3}')"
+}
+mapfile -t TORRENTS < <(find "$TORRENTS_DIR" -maxdepth 1 -type f -name '*.torrent' -print0 | xargs -0 -n1 basename)
+#mapfile -t MAGNETS < <(for t in "${TORRENTS[@]}"; do makemagnet "$t"; done)
+exec docker run --rm --entrypoint npx --tty --interactive \
   --name webtorrent-seeder \
-  -v "${TORRENTS_DIR}:/torrents:ro" \
-  -v "${MEDIA_DIR}:/media:ro" \
-  "${IMAGE}" seed --verbose /torrents --out /media
+  --publish "${PORT}:6881" \
+  --volume "${TORRENTS_DIR}:/torrents:ro" \
+  --volume "${MEDIA_DIR}:/media:ro" \
+  "${IMAGE}" webtorrent seed "${TORRENTS[@]/#//torrents/}" --out /media --keep-seeding "$@"
