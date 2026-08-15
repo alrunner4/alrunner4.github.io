@@ -90,7 +90,7 @@
       // Filter image and video files
       const mediaFiles = files.filter(f => {
         const ext = f.name.split('.').pop().toLowerCase();
-        return ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg', 'mp4', 'webm', 'ogg'].includes(ext);
+        return ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg', 'mp4', 'webm', 'ogg', 'mov'].includes(ext);
       });
 
       if (mediaFiles.length === 0) {
