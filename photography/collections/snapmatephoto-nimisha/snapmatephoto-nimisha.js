@@ -106,7 +106,7 @@
 
       mediaFiles.forEach(file => {
         const ext = file.name.split('.').pop().toLowerCase();
-        const isVideo = ['mp4', 'webm', 'ogg'].includes(ext);
+        const isVideo = ['mp4', 'webm', 'ogg', 'mov'].includes(ext);
         const fileType = isVideo ? 'video' : 'image';
         const badgeClass = isVideo ? 'badge-video' : 'badge-image';
         const badgeIcon = isVideo ? 'fa-video' : 'fa-image';
