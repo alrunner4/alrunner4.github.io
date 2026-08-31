@@ -96,7 +96,7 @@ function setupGalleryGrid(files) {
       <div class="empty-state">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <h3>No Media Found</h3>
-        <p>This torrent doesn't seem to contain any supported image or video formats.</p>
+        <p>The gallery metadata doesn't seem to contain any supported image or video formats.</p>
       </div>
     `;
     return;
@@ -251,7 +251,7 @@ function loadTorrent(torrentId) {
   headerProgressContainer.style.display = 'flex';
   headerProgressContainer.offsetHeight; // force reflow for opacity transition
   headerProgressContainer.style.opacity = '1';
-  headerProgressText.textContent = 'Connecting to P2P swarm...';
+  headerProgressText.textContent = 'Connecting to gallery...';
   headerProgressBar.style.width = '0%';
   
   galleryGrid.innerHTML = `
@@ -287,7 +287,7 @@ function loadTorrent(torrentId) {
           addTorrentToClient(blob);
         })
         .catch(err => {
-          showTorrentLoadError(`Failed to download torrent file from URL.<br><br><strong>URL:</strong> <code>${absoluteUrl}</code><br><strong>Error:</strong> ${err.message}<br><br>Please verify that the file exists and the build script has run (try <code>make build-gallery</code> locally).`);
+          showTorrentLoadError(`Failed to download gallery metadata from <code>${absoluteUrl}</code><br><strong>Error:</strong> ${err.message}`);
         });
     }
   } else {
@@ -348,7 +348,7 @@ function loadGalleriesManifest() {
     .then(data => {
       galleryList = data;
       if (galleryList.length === 0) {
-        showTorrentLoadError("No galleries found in torrents/galleries.json. Please put media folders in gallery-media/ and run 'make build-gallery' locally.");
+        showTorrentLoadError("Metadata error: no galleries");
         return;
       }
 
@@ -375,7 +375,7 @@ function loadGalleriesManifest() {
       loadTorrent(firstGal.file);
     })
     .catch(err => {
-      showTorrentLoadError(`Failed to load galleries manifest.<br><br><strong>Error:</strong> ${err.message}<br><br>Please verify you have run the build pipeline (run <code>make build-gallery</code> locally) to compile the media torrents.`);
+      showTorrentLoadError(`Metadata error: failed to parse gallery metadata`);
     });
 }
 
