@@ -574,17 +574,14 @@ t in the dark worked.
             <span id="gallery-title-text">Gallery</span>
           </h2>
           <div class="select-wrapper">
-            <select id="gallery-select" class="gallery-select" aria-label="Select Gallery">
-              <option value="">Loading galleries...</option>
-            </select>
+            <select id="gallery-select" class="gallery-select" aria-label="Select Gallery"></select>
             <i class="fa-solid fa-chevron-down select-chevron"></i>
           </div>
         </div>
         
         <div class="gallery-actions" style="display:flex; gap:12px; align-items:center;">
-          <!-- Localized Progress Bar -->
           <div class="header-progress-container" id="header-progress-container">
-            <span class="header-progress-text" id="header-progress-text">Connecting to P2P swarm...</span>
+            <span class="header-progress-text" id="header-progress-text">Waiting for connection to album...</span>
             <div class="header-progress-bar-container">
               <div class="header-progress-bar" id="header-progress-bar"></div>
             </div>
@@ -601,8 +598,8 @@ t in the dark worked.
         <!-- Empty State before torrent loads -->
         <div class="empty-state" id="empty-state">
           <i class="fa-solid fa-network-wired"></i>
-          <h3>Awaiting Torrent Feed</h3>
-          <p>Please compile the galleries manifest by running <code>make build-gallery</code> locally.</p>
+          <h3>There's Nothing Here</h3>
+          <p>If you're seeing this and you don't have Javascript disabled, something's probably wrong with the site.</p>
         </div>
       </div>
     </main>

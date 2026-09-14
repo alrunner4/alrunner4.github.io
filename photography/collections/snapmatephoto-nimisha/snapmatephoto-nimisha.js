@@ -238,47 +238,6 @@
       });
 
       try {
-        // Use JSZip when available to create a single archive
-        if (window.JSZip) {
-          const zip = new JSZip();
-          const folderName = galleryTitleText.textContent ? galleryTitleText.textContent.replace(/[^a-zA-Z0-9_\-]/g, '_') : 'gallery';
-          const folder = zip.folder(folderName) || zip;
-
-          headerProgressContainer.style.display = 'flex';
-          headerProgressContainer.style.opacity = '1';
-          headerProgressText.textContent = 'archiving gallery...';
-          headerProgressBar.style.width = '0%';
-
-          let i = 0;
-          for (const file of activeTorrent.files) {
-            i++;
-            headerProgressText.textContent = `adding ${i}/${activeTorrent.files.length}: ${file.name}`;
-            try {
-              const blob = await getBlob(file);
-              folder.file(file.name, blob);
-            } catch (err) {
-              console.warn('Failed to add file to archive:', file.name, err);
-            }
-          }
-
-          const blob = await zip.generateAsync({ type: 'blob' }, (meta) => {
-            headerProgressBar.style.width = `${Math.floor(meta.percent)}%`;
-            headerProgressText.textContent = `compressing ${Math.round(meta.percent)}%`;
-          });
-
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = `${folderName}.zip`;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-
-          headerProgressText.textContent = 'archive ready';
-          setTimeout(() => {
-            headerProgressContainer.style.opacity = '0';
-          }, 1500);
-        } else {
-          // Fallback: trigger sequential downloads for each file
           headerProgressContainer.style.display = 'flex';
           headerProgressContainer.style.opacity = '1';
           headerProgressText.textContent = 'starting downloads...';
@@ -300,7 +259,6 @@
 
           headerProgressText.textContent = 'downloads started';
           setTimeout(() => { headerProgressContainer.style.opacity = '0'; }, 1500);
-        }
       } catch (err) {
         console.error('Download all failed:', err);
         alert('Failed to download gallery: ' + (err && err.message ? err.message : err));
