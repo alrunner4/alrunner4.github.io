@@ -20,9 +20,41 @@
     const lightboxTitle = document.getElementById('lightbox-title');
     const lightboxClose = document.getElementById('lightbox-close');
 
+    const pickingToggleBtn = document.getElementById('picking-toggle-btn');
+    const emailSelectionBtn = document.getElementById('email-selection-btn');
+    const emailCount = document.getElementById('email-count');
+
     let activeTorrent = null;
     let updateInterval = null;
     let galleryList = [];
+
+    let isPickingMode = false;
+    let selectedFiles = new Set();
+
+    pickingToggleBtn.addEventListener('click', () => {
+      isPickingMode = !isPickingMode;
+      document.body.classList.toggle('picking-mode-active', isPickingMode);
+      pickingToggleBtn.classList.toggle('active', isPickingMode);
+      emailSelectionBtn.style.display = isPickingMode ? 'inline-flex' : 'none';
+      // Reset selections when turning off picking mode
+      if (!isPickingMode) {
+        selectedFiles.clear();
+        updateEmailLink();
+        document.querySelectorAll('.media-checkbox').forEach(cb => cb.checked = false);
+      }
+    });
+
+    // Generate Mailto Link
+    function updateEmailLink() {
+      emailCount.textContent = selectedFiles.size;
+      
+      const fileList = Array.from(selectedFiles).join('%0D%0A'); // URL-encoded newline
+      const subject = encodeURIComponent('Selected Gallery Media');
+      const body = encodeURIComponent('Here are the selected files:\n\n') + fileList;
+      
+      // Defaults to the domain based on the title tag
+      emailSelectionBtn.href = `mailto:contact@alexandercarter.net?subject=${subject}&body=${body}`;
+    }
 
     // Helper: Format byte count to human readable
     function formatBytes(bytes, decimals = 2) {
@@ -119,6 +151,7 @@
         // Preview Element
         card.innerHTML = `
           <div class="media-preview-container">
+            <input type="checkbox" class="media-checkbox" id="check-${card.id}" value="${file.name}">
             <div class="skeleton" id="skeleton-${card.id}">
               <div class="skeleton-spinner"></div>
               <div class="skeleton-progress" id="progress-${card.id}">0%</div>
@@ -144,7 +177,17 @@
 
         galleryGrid.appendChild(card);
 
-        // Track local download progress for each file
+        const checkbox = card.querySelector('.media-checkbox');
+        checkbox.addEventListener('change', (e) => {
+          if (e.target.checked) {
+            selectedFiles.add(file.name);
+          } else {
+            selectedFiles.delete(file.name);
+          }
+          updateEmailLink();
+        });
+        galleryGrid.appendChild(card);
+
         const updateFileProgress = () => {
           const fileProg = file.progress;
           const progEl = document.getElementById(`progress-${card.id}`);

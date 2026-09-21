@@ -549,6 +549,59 @@ t in the dark worked.
       max-width: 400px;
       margin: 0 auto;
     }
+
+    /* Picking Mode Styles */
+    .picking-mode-btn.active {
+      background: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      color: #000;
+    }
+
+    #email-selection-btn {
+      display: none; /* Hidden initially */
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      padding: 0 1rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    #email-selection-btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+
+    /* Checkbox styling on media cards */
+    .media-checkbox {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10;
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-fast);
+      accent-color: var(--accent-cyan);
+    }
+
+    /* Show checkboxes when picking mode is active */
+    body.picking-mode-active .media-checkbox {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Dim card slightly when unchecked in picking mode to highlight selections */
+    body.picking-mode-active .media-card:not(:has(.media-checkbox:checked)) .media-preview {
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body>
@@ -578,7 +631,6 @@ t in the dark worked.
             <i class="fa-solid fa-chevron-down select-chevron"></i>
           </div>
         </div>
-        
         <div class="gallery-actions" style="display:flex; gap:12px; align-items:center;">
           <div class="header-progress-container" id="header-progress-container">
             <span class="header-progress-text" id="header-progress-text">Waiting for connection to album...</span>
@@ -586,8 +638,13 @@ t in the dark worked.
               <div class="header-progress-bar" id="header-progress-bar"></div>
             </div>
           </div>
-
-          <!-- Download Entire Gallery Button -->
+          <button class="icon-btn picking-mode-btn" id="picking-toggle-btn" title="Toggle Picking Mode">
+            <i class="fa-solid fa-list-check"></i>
+          </button>
+          <a href="#" id="email-selection-btn" title="Email Selected Files">
+            <i class="fa-solid fa-envelope"></i>
+            <span id="email-count">0</span>
+          </a>
           <button class="icon-btn" id="download-all-btn" title="Download entire gallery">
             <i class="fa-solid fa-file-zipper"></i>
           </button>
