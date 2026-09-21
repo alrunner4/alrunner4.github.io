@@ -1,5 +1,5 @@
 [
+    { "name": "Previews", "file": "better-previews.torrent" },
     { "name": "Unedited", "file": "unedited.torrent" },
-    { "name": "Video",    "file": "video.torrent"    },
-    { "name": "Previews", "file": "previews.torrent" }
+    { "name": "Video",    "file": "video.torrent"    }
 ]
