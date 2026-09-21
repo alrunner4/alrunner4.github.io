@@ -188,12 +188,25 @@
         });
         galleryGrid.appendChild(card);
 
+        // Track local download progress for each file
         const updateFileProgress = () => {
           const fileProg = file.progress;
           const progEl = document.getElementById(`progress-${card.id}`);
+          const skeletonEl = document.getElementById(`skeleton-${card.id}`);
+
           if (progEl) {
             progEl.textContent = `${Math.floor(fileProg * 100)}%`;
           }
+
+          // Toggle spinner visibility based on active download progress
+          if (skeletonEl) {
+            if (fileProg > 0 && !file.done) {
+              skeletonEl.classList.add('is-downloading');
+            } else {
+              skeletonEl.classList.remove('is-downloading');
+            }
+          }
+
           if (file.done) {
             clearInterval(fileInterval);
           }

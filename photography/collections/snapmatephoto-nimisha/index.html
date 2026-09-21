@@ -299,16 +299,14 @@ t in the dark worked.
       opacity: 1;
     }
 
-    /* Skeleton Loader */
+    /* Skeleton Loader (Static Background & Quiet Pending State) */
     .skeleton {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
-      background-size: 200% 100%;
-      animation: loading 1.5s infinite;
+      background: rgba(255, 255, 255, 0.02); /* Flat, static background (removes wipe animation) */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -317,11 +315,7 @@ t in the dark worked.
       padding: 1rem;
     }
 
-    @keyframes loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
+    /* Spinner hidden by default for pending files */
     .skeleton-spinner {
       width: 2.5rem;
       height: 2.5rem;
@@ -329,6 +323,12 @@ t in the dark worked.
       border-top-color: var(--accent-cyan);
       border-radius: 50%;
       animation: spin 1s linear infinite;
+      display: none; 
+    }
+
+    /* Display spinner only when actively downloading */
+    .skeleton.is-downloading .skeleton-spinner {
+      display: block;
     }
 
     .skeleton-progress {
