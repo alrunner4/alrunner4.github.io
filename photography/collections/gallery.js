@@ -379,9 +379,69 @@ function loadGalleriesManifest() {
     });
 }
 
-// Auto-load site's default torrent on start
+// Fetch dynamic IP configuration and then load galleries manifest
+function initGallery() {
+  fetch('ip.json?t=' + Date.now()) // prevent caching
+    .then(res => res.json())
+    .then(config => {
+      window.HOST_WEB_SEED = `http://${config.ip}:${config.port}/torrents/`;
+      loadGalleriesManifest();
+    })
+    .catch(err => {
+      console.warn('Failed to load dynamic IP config, falling back to P2P only:', err);
+      window.HOST_WEB_SEED = null;
+      loadGalleriesManifest();
+    });
+}
+
+// Internal function to add the parsed source to WebTorrent with HTTP seed fallback
+function addTorrentToClient(source) {
+  const options = {};
+  
+  // If we have a dynamic host Web Seed URL configured, attach it
+  if (window.HOST_WEB_SEED) {
+    // WebTorrent urlList expects an array of web seed URLs for the torrent files
+    options.urlList = [window.HOST_WEB_SEED];
+  }
+
+  client.add(source, options, (torrent) => {
+    activeTorrent = torrent;
+    headerProgressText.textContent = 'loading gallery metadata';
+    
+    // Render file grid
+    setupGalleryGrid(torrent.files);
+
+    // Stats update interval
+    updateInterval = setInterval(() => {
+      const progress = torrent.progress;
+      const pct = Math.floor(progress * 100);
+      const speedStr = formatBytes(torrent.downloadSpeed) + '/s';
+      
+      if (torrent.done) {
+        headerProgressText.textContent = `gallery download complete`;
+        headerProgressBar.style.width = '100%';
+        clearInterval(updateInterval);
+        
+        setTimeout(() => {
+          headerProgressContainer.style.opacity = '0';
+          setTimeout(() => {
+            headerProgressContainer.style.display = 'none';
+          }, 1000);
+        }, 2000);
+      } else {
+        const timeRemainingStr = formatRemaining(torrent.timeRemaining);
+        if (torrent.downloadSpeed === 0) {
+          headerProgressText.textContent = `connecting to album & web seed...`;
+        } else {
+          headerProgressText.textContent = `downloading: ${pct}% at ${speedStr}${timeRemainingStr}`;
+          headerProgressBar.style.width = `${progress * 100}%`;
+        }
+      }
+    }, 1000);
+  });
+}
+
+// Replace window.addEventListener('DOMContentLoaded') trigger:
 window.addEventListener('DOMContentLoaded', () => {
-  loadGalleriesManifest();
+  initGallery();
 });
-
-
